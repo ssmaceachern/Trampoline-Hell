@@ -82,3 +82,8 @@ GameObject.prototype.Update = function(){
 	//stub for objects to inherit from
 	//PS.debug(this.name + ": Update frame!\n");
 };
+
+GameObject.prototype.Collision = function(s1, p1, s2, p2, type){
+	//stub for objects to inherit from.
+	//PS.debug(s1 + " Collied with " + s2 + "!\n");	
+};
