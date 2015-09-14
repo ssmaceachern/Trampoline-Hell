@@ -53,7 +53,7 @@ PS.init = function( system, options ) {
 	// Otherwise you will get the default 8x8 grid
 	
 	Game = new Window(32, 32, PS.COLOR_WHITE);
-	Player = new Player(16, 16);
+	Player = new Player(16, 12);
 	Trampoline = new Trampoline(15, 18);
 	
 	Game.addObject(new Wall(0,31,32,1));

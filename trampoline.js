@@ -29,6 +29,9 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
 	
+	PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
+	PS.spriteMove(this.sprite, this.x, this.y);
+	
 	if(this.sprite != null){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
