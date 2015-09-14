@@ -7,6 +7,7 @@ var Player = function(x, y){
 	this.y = y;
 	this.w = 2;
 	this.h = 4;
+	this.name = "Player";
 	
 	this.moveSpeed = 1/30;
 	this.horizontalSpeed = 1;
@@ -41,5 +42,6 @@ Player.prototype.Update = function(){
 };
 
 Player.prototype.Collision = function(s1, p1, s2, p2, type){
-	this.y = 0;
+	//this.y = 0;
+	//PS.debug("Collision\n");
 };

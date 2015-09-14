@@ -9,7 +9,7 @@ var Trampoline = function(x, y){
 	this.h = 2;
 	this.name = "Trampoline";
 	
-	this.moveSpeed = 1;
+	this.moveSpeed = 1/30;
 	
 	/*
 	 * Load the player sprite
@@ -17,12 +17,14 @@ var Trampoline = function(x, y){
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
 	PS.spriteMove(this.sprite, this.x, this.y);
+	
+	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 };
 
 GameObject.prototype.impart(Trampoline);
 
 Trampoline.prototype.Update = function(){
-	
+	this.x += this.moveSpeed;
 };
 
 Trampoline.prototype.Draw = function(offsetX, offsetY){
@@ -39,4 +41,13 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 		PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
+};
+
+Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
+	var CollidingObject = Level.prototype.getObjectBySprite(s2);
+	PS.debug(CollidingObject.name);
+	if(CollidingObject.name == "Wall"){
+		this.moveSpeed *= -1;
+	}
+	
 };
