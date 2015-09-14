@@ -41,6 +41,8 @@ See dygraphs License.txt, <http://dygraphs.com> and <http://opensource.org/licen
 // [system] = an object containing engine and platform information; see documentation for details
 // [options] = an object with optional parameters; see documentation for details
 var Game;
+var Player;
+var Trampoline;
 
 PS.init = function( system, options ) {
 	"use strict";
@@ -51,6 +53,18 @@ PS.init = function( system, options ) {
 	// Otherwise you will get the default 8x8 grid
 	
 	Game = new Window(32, 32, PS.COLOR_WHITE);
+	Player = new Player(16, 16);
+	Trampoline = new Trampoline(15, 18);
+	
+	Game.addObject(new Wall(0,31,32,1));
+	Game.addObject(new Wall(0,1,1,32));
+	Game.addObject(new Wall(31,1,1,32));
+	
+	Game.addObject(Trampoline);
+	Game.addObject(Player);
+	
+	//PS.gridColor ( PS.COLOR_ORANGE );
+	
 	// Add any other initialization code you need here
 	
 	Game.run();
@@ -161,9 +175,15 @@ PS.keyDown = function( key, shift, ctrl, options ) {
 	// Add code here for when a key is pressed
 	
 	switch (key){
-		case PS.KEY_SPACE:
+		case PS.KEY_ARROW_LEFT:
 		{
-			PS.color(PS.ALL, PS.ALL, PS.COLOR_WHITE);
+			Player.x -= Player.horizontalSpeed;
+			break;
+		}
+		
+		case PS.KEY_ARROW_RIGHT:
+		{
+			Player.x += Player.horizontalSpeed;
 			break;
 		}
 	}
