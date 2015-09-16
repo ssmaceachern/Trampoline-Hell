@@ -16,25 +16,30 @@ var Level = function(width, height, color, player)
 	
 	this.scrollSpeed = 0;
 	
-	this.sprite = PS.spriteSolid(this.w, this.h);
-	PS.spriteSolidColor ( this.sprite, PS.COLOR_WHITE );
-	PS.spriteMove(this.sprite, this.x, this.y);
+	var image;
+	this.image = PS.imageLoad("levelimage.bmp", imageLoader);
+	//PS.spriteSolidColor ( this.sprite, PS.COLOR_WHITE );
+	//PS.spriteMove(this.sprite, this.x, this.y);
 	
 };
+
+function imageLoader(image){
+	PS.imageBlit(image, 0, -68);
+}
 
 GameObject.prototype.impart(Level);
 
 Level.prototype.addObject = function(object) {
 	this.objects.push(object);
 };
-
+/*
 Level.prototype.getObjectbySprite = function(sprite)
 {
 	return this.objects.filter(function(obj){
 		obj.sprite == sprite;
 	});
 };
-
+*/
 Level.prototype.Update = function(){
 	//PS.debug("Update?\n");
 	for (var i = 0; i < this.objects.length; ++i) {

@@ -24,6 +24,9 @@ var Trampoline = function(x, y){
 GameObject.prototype.impart(Trampoline);
 
 Trampoline.prototype.Update = function(){
+	if (this.x + this.moveSpeed > 28 || this.x + this.moveSpeed < 1){
+		this.moveSpeed = this.moveSpeed * -1;
+	}
 	this.x += this.moveSpeed;
 };
 
@@ -42,7 +45,7 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
 };
-
+/*
 Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
 	var CollidingObject = Level.prototype.getObjectBySprite(s2);
 	PS.debug(CollidingObject.name);
@@ -51,3 +54,4 @@ Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
 	}
 	
 };
+*/
