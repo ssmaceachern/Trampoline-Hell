@@ -2,12 +2,14 @@
  * @author Sean
  */
 
-var Wall = function(x, y, width, height){
+var Wall = function(x, y, width, height, level){
 	this.x = x;
 	this.y = y;
 	this.w = width;
 	this.h = height;
 	this.name = "Wall";
+	
+	this.level = level;
 	
 	/*
 	 * Load the player sprite
@@ -15,6 +17,8 @@ var Wall = function(x, y, width, height){
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, PS.COLOR_BLACK );
 	PS.spriteMove(this.sprite, this.x, this.y);
+	
+	level.addObject(this);
 };
 
 GameObject.prototype.impart(Wall);

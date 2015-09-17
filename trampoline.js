@@ -2,12 +2,14 @@
  * @author Sean
  */
 
-var Trampoline = function(x, y){
+var Trampoline = function(x, y, level){
 	this.x = x;
 	this.y = y;
 	this.w = 4;
 	this.h = 2;
 	this.name = "Trampoline";
+	
+	this.level = level;
 	
 	this.moveSpeed = 1/30;
 	
@@ -19,12 +21,16 @@ var Trampoline = function(x, y){
 	PS.spriteMove(this.sprite, this.x, this.y);
 	
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
+	
+	level.addObject(this);
 };
 
 GameObject.prototype.impart(Trampoline);
 
 Trampoline.prototype.Update = function(){
 	this.x += this.moveSpeed;
+	
+	//PS.debug(this.level.objects.length);
 };
 
 Trampoline.prototype.Draw = function(offsetX, offsetY){
@@ -43,11 +49,17 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 	}
 };
 
+Trampoline.prototype.setLevel = function(level)
+{
+	this.level = level;
+};
+
 Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
-	var CollidingObject = Level.prototype.getObjectBySprite(s2);
-	PS.debug(CollidingObject.name);
-	if(CollidingObject.name == "Wall"){
-		this.moveSpeed *= -1;
-	}
+	var CollidedObject = this.level.getObjectBySprite(s2);
+	PS.debug(CollidedObject.name + "\n");
 	
+	if(CollidedObject.name == "Wall")
+	{
+		this.moveSpeed = this.moveSpeed * -1;
+	}
 };

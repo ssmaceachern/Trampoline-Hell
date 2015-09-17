@@ -2,14 +2,20 @@
  * @author Sean
  */
 
-var Player = function(x, y){
+var Player = function(x, y, level){
 	this.x = x;
 	this.y = y;
 	this.w = 2;
 	this.h = 4;
 	this.name = "Player";
 	
+	this.level = level;
+	
 	this.moveSpeed = 1/30;
+	this.ySpeed = 1/30;
+	this.yMaxSpeed = 2;
+	this.yAcceleration = 1/600;
+	
 	this.horizontalSpeed = 1;
 	
 	/*
@@ -20,6 +26,8 @@ var Player = function(x, y){
 	PS.spriteMove(this.sprite, this.x, this.y);
 	
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
+	
+	level.addObject(this);
 };
 
 GameObject.prototype.impart(Player);
@@ -38,10 +46,34 @@ Player.prototype.Draw = function(offsetX, offsetY){
 };
 
 Player.prototype.Update = function(){
-	this.y += Player.moveSpeed;
+	if(Player.ySpeed < Player.yMaxSpeed){
+		Player.ySpeed += Player.yAcceleration;
+	}
+	
+	this.y += Player.ySpeed;
+	//PS.debug("Player Y Position:" + this.y + "\n");
+};
+
+Player.prototype.setLevel = function(level)
+{
+	this.level = level;
 };
 
 Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	//this.y = 0;
 	//PS.debug("Collision\n");
+	
+	// if(Level != null){
+		var CollidingObject = this.level.getObjectBySprite(s2);
+		if(CollidingObject.name == "Trampoline"){
+			 Player.ySpeed = Player.ySpeed * -1.2;
+		}
+		
+		if(CollidingObject.name == "Wall"){
+			 Player.ySpeed = 0;
+			 Player.yAcceleration = 0;
+		}
+			
+	// }
+	
 };
