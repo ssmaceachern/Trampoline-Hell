@@ -65,6 +65,9 @@ PS.init = function( system, options ) {
 	new Wall(0,1,1,32, Level);
 	new Wall(31,1,1,32, Level);
 	
+	new Spawnable(8, 11, 2, 2, 0, Level);
+	new Spawnable(22, 11, 2, 2, 1, Level);
+	
 	Game.addObject(Level);
 	
 	Level.setPlayer(Player);

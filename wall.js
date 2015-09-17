@@ -12,7 +12,7 @@ var Wall = function(x, y, width, height, level){
 	this.level = level;
 	
 	/*
-	 * Load the player sprite
+	 * Load the sprite
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, PS.COLOR_BLACK );

@@ -25,6 +25,15 @@ GameObject.prototype.impart(Level);
 
 Level.prototype.addObject = function(object) {
 	this.objects.push(object);
+	
+};
+
+Level.prototype.removeObject = function(object) {
+	if(object.sprite != null){
+		PS.spriteDelete(object.sprite);
+	}
+	var ind = this.objects.indexOf(object);
+	delete (this.objects.splice(ind, 1));
 };
 
 Level.prototype.setPlayer = function(object){
@@ -53,11 +62,13 @@ Level.prototype.getObjectBySprite = function(sprite) {
 Level.prototype.Update = function(){
 	//PS.debug("Update?\n");
 	for (var i = 0; i < this.objects.length; ++i) {
+		if(this.objects[i] != null){
 			if(this.objects[i] != this.player){
 				this.objects[i].y = this.objects[i].y - this.player.ySpeed;
 			}
 			
 			this.objects[i]._update();
+		}
 	}	
 };
 
@@ -65,6 +76,8 @@ Level.prototype.Draw = function(offsetX, offsetY) {
 	//PS.color( PS.ALL, PS.ALL, this.color);
 	
 	for (var i = 0; i < this.objects.length; ++i) {
+		if((this.objects[i] != null)){
 			this.objects[i]._draw(offsetX, offsetY);
+		}
 	}
 };

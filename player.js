@@ -73,7 +73,19 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 			 Player.ySpeed = 0;
 			 Player.yAcceleration = 0;
 		}
-			
+		
+		if(CollidingObject.name == "Spawnable"){
+			if(Player.ySpeed < 0){
+				if(CollidingObject.type == 0){
+					Player.ySpeed = (Player.ySpeed * 1.1);
+				}
+				else{
+					Player.ySpeed = (Player.ySpeed / 1.5);
+				}
+				//this.level.removeObject(CollidingObject);
+				//PS.spriteDelete(CollidingObject.sprite);
+			}
+		}
 	// }
 	
 };
