@@ -32,14 +32,17 @@ GameObject.prototype.impart(Level);
 Level.prototype.addObject = function(object) {
 	this.objects.push(object);
 };
-/*
+
 Level.prototype.getObjectbySprite = function(sprite)
 {
-	return this.objects.filter(function(obj){
-		obj.sprite == sprite;
-	});
+	for(var n = 0; n < this.objects.length; ++n){
+		PS.debug(this.objects[n].name);
+		if (sprite == this.objects[n].sprite){
+			return this.objects[n];
+		}
+	}
 };
-*/
+
 Level.prototype.Update = function(){
 	//PS.debug("Update?\n");
 	for (var i = 0; i < this.objects.length; ++i) {

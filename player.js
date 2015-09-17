@@ -12,6 +12,7 @@ var Player = function(x, y){
 	this.moveSpeed = 1/30;
 	this.horizontalSpeed = 1;
 	
+	this.bounce_count = 0;
 	/*
 	 * Load the player sprite
 	 */
@@ -44,4 +45,19 @@ Player.prototype.Update = function(){
 Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	//this.y = 0;
 	//PS.debug("Collision\n");
+	var colliding_object = Level.getObjectbySprite(s2);
+	PS.debug(colliding_object.name);
+	PS.debug(s2);
+	if (colliding_object.name == "Trampoline"){
+		PS.debug("collided with tramp");
+		Player.moveSpeed = Player.moveSpeed * -1;
+	}
+	if (colliding_object.name == "Wall"){
+		if (this.x > 15){
+			--this.x;
+		}
+		else if(this.x < 15){
+			++this.x;
+		}
+	}
 };

@@ -31,3 +31,7 @@ Wall.prototype.Draw = function(offsetX, offsetY){
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
 };
+
+function getSprite(){
+	return this.sprite;
+}

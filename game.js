@@ -56,7 +56,7 @@ PS.init = function( system, options ) {
 	Game = new Window(32, 32, PS.COLOR_WHITE);
 	Player = new Player(16, 12);
 	
-	Trampoline = new Trampoline(15, 18);
+	Trampoline = new Trampoline(15, 29);
 	
 	Level = new Level(32, 100, PS.COLOR_WHITE, Player);
 	
