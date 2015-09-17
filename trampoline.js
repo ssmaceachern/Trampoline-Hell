@@ -5,7 +5,7 @@
 var Trampoline = function(x, y, level){
 	this.x = x;
 	this.y = y;
-	this.w = 4;
+	this.w = 5;
 	this.h = 2;
 	this.name = "Trampoline";
 	

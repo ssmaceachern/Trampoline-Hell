@@ -64,6 +64,7 @@ PS.init = function( system, options ) {
 	new Wall(0,31,32,1, Level);
 	new Wall(0,-68,1,100, Level);
 	new Wall(31,-68,1,100, Level);
+	new Indicator(Player, Trampoline, Level);
 	
 	Game.addObject(Level);
 	
