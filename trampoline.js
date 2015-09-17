@@ -5,7 +5,7 @@
 var Trampoline = function(x, y, level){
 	this.x = x;
 	this.y = y;
-	this.w = 4;
+	this.w = 5;
 	this.h = 2;
 	this.name = "Trampoline";
 	
@@ -56,7 +56,7 @@ Trampoline.prototype.setLevel = function(level)
 
 Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
 	var CollidedObject = this.level.getObjectBySprite(s2);
-	PS.debug(CollidedObject.name + "\n");
+	//PS.debug(CollidedObject.name + "\n");
 	
 	if(CollidedObject.name == "Wall")
 	{

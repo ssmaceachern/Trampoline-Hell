@@ -62,8 +62,9 @@ PS.init = function( system, options ) {
 	//PS.debug("Init\n");
 	
 	new Wall(0,31,32,1, Level);
-	new Wall(0,1,1,32, Level);
-	new Wall(31,1,1,32, Level);
+	new Wall(0,-68,1,100, Level);
+	new Wall(31,-68,1,100, Level);
+	new Indicator(Player, Trampoline, Level);
 	
 	new Spawnable(8, 11, 2, 2, 0, Level);
 	new Spawnable(22, 11, 2, 2, 1, Level);

@@ -46,12 +46,13 @@ Player.prototype.Draw = function(offsetX, offsetY){
 };
 
 Player.prototype.Update = function(){
+	//PS.debug("Player Y Position:" + this.y + "\n");
+	
 	if(Player.ySpeed < Player.yMaxSpeed){
 		Player.ySpeed += Player.yAcceleration;
 	}
 	
 	this.y += Player.ySpeed;
-	//PS.debug("Player Y Position:" + this.y + "\n");
 };
 
 Player.prototype.setLevel = function(level)
