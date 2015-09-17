@@ -47,9 +47,15 @@ Player.prototype.Draw = function(offsetX, offsetY){
 
 Player.prototype.Update = function(){
 	//PS.debug("Player Y Position:" + this.y + "\n");
-	
 	if(Player.ySpeed < Player.yMaxSpeed){
 		Player.ySpeed += Player.yAcceleration;
+	}
+	
+	if(this.x > 28)
+	{
+		this.x--;
+	}else if(this.x < 2){
+		this.x++;
 	}
 	
 	this.y += Player.ySpeed;
@@ -61,32 +67,25 @@ Player.prototype.setLevel = function(level)
 };
 
 Player.prototype.Collision = function(s1, p1, s2, p2, type){
-	//this.y = 0;
-	//PS.debug("Collision\n");
 	
-	// if(Level != null){
-		var CollidingObject = this.level.getObjectBySprite(s2);
-		if(CollidingObject.name == "Trampoline"){
-			 Player.ySpeed = Player.ySpeed * -1.2;
-		}
-		
-		if(CollidingObject.name == "Wall"){
-			 Player.ySpeed = 0;
-			 Player.yAcceleration = 0;
-		}
-		
-		if(CollidingObject.name == "Spawnable"){
-			if(Player.ySpeed < 0){
-				if(CollidingObject.type == 0){
-					Player.ySpeed = (Player.ySpeed * 1.1);
-				}
-				else{
-					Player.ySpeed = (Player.ySpeed / 1.5);
-				}
-				//this.level.removeObject(CollidingObject);
-				//PS.spriteDelete(CollidingObject.sprite);
+	var CollidingObject = this.level.getObjectBySprite(s2);
+	if(CollidingObject.name == "Trampoline"){
+		 Player.ySpeed = Player.ySpeed * -1.2;
+	}
+	
+	if(CollidingObject.name == "Wall"){
+		Game.stop();
+	}
+	
+	if(CollidingObject.name == "Spawnable"){
+		if(Player.ySpeed < 0){
+			if(CollidingObject.type == 0){
+				Player.ySpeed -= 0.01;
 			}
+			else{
+				Player.ySpeed = 0;
+			}
+			
 		}
-	// }
-	
+	}
 };

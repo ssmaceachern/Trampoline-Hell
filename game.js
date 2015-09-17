@@ -40,10 +40,11 @@ See dygraphs License.txt, <http://dygraphs.com> and <http://opensource.org/licen
 // where x and y are the desired initial dimensions of the grid
 // [system] = an object containing engine and platform information; see documentation for details
 // [options] = an object with optional parameters; see documentation for details
+
 var Game;
+var Level;
 var Player;
 var Trampoline;
-var Level;
 
 PS.init = function( system, options ) {
 	"use strict";
@@ -55,7 +56,7 @@ PS.init = function( system, options ) {
 	
 	Game = new Window(32, 32, PS.COLOR_WHITE);
 	
-	Level = new Level(32, 100, PS.COLOR_WHITE);
+	Level = new Level(32, 100);
 		
 	Player = new Player(16, 12, Level);
 	Trampoline = new Trampoline(15, 27, Level);

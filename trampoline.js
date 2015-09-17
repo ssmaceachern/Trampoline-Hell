@@ -28,8 +28,11 @@ var Trampoline = function(x, y, level){
 GameObject.prototype.impart(Trampoline);
 
 Trampoline.prototype.Update = function(){
-	this.x += this.moveSpeed;
+	if(this.x > 26 || this.x < 2){
+		this.moveSpeed = this.moveSpeed * -1;
+	}
 	
+	this.x += this.moveSpeed;
 	//PS.debug(this.level.objects.length);
 };
 
@@ -52,14 +55,4 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 Trampoline.prototype.setLevel = function(level)
 {
 	this.level = level;
-};
-
-Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
-	var CollidedObject = this.level.getObjectBySprite(s2);
-	//PS.debug(CollidedObject.name + "\n");
-	
-	if(CollidedObject.name == "Wall")
-	{
-		this.moveSpeed = this.moveSpeed * -1;
-	}
 };
