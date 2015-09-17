@@ -2,6 +2,23 @@
  * @author Sean
  */
 
+// var Camera = function(width, height, target){
+	// GameObject.call(this, target.x, target.y, width, height, "Camera");
+	// this.width = width;
+	// this.height = height;
+	// this.target = target;
+// 	
+	// this.upperBound = this.target.y + 12;
+	// this.lowerBound = this.target.y - 5;
+// };
+// 
+// GameObject.prototype.impart(Camera);
+// 
+// Camera.prototype.Update() = function(){
+	// this.upperBound = this.target.y + 12;
+	// this.lowerBound = this.target.y - 5;
+// };
+
 var Level = function(width, height, color)
 {
 	GameObject.call(this, 0, 0, width, height, "Level");
@@ -13,6 +30,8 @@ var Level = function(width, height, color)
 	PS.gridColor(this.color);
 	
 	this.player = null;
+	//this.camera = null;
+	
 	this.scrollSpeed;
 	
 	// this.sprite = PS.spriteSolid(this.w, this.h);
@@ -29,6 +48,8 @@ Level.prototype.addObject = function(object) {
 
 Level.prototype.setPlayer = function(object){
 	this.player = object;
+	
+	//this.camera = new PlayerCamera(32, 32, this.player);
 };
 
 Level.prototype.getObjectBySprite = function(sprite) {
@@ -53,9 +74,7 @@ Level.prototype.getObjectBySprite = function(sprite) {
 Level.prototype.Update = function(){
 	//PS.debug("Update?\n");
 	for (var i = 0; i < this.objects.length; ++i) {
-			if(this.objects[i] != this.player){
-				this.objects[i].y = this.objects[i].y - this.player.ySpeed;
-			}
+			this.objects[i].y = this.objects[i].y - this.player.ySpeed;
 			
 			this.objects[i]._update();
 	}	

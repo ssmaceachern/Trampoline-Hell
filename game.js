@@ -62,8 +62,8 @@ PS.init = function( system, options ) {
 	//PS.debug("Init\n");
 	
 	new Wall(0,31,32,1, Level);
-	new Wall(0,1,1,32, Level);
-	new Wall(31,1,1,32, Level);
+	new Wall(0,-68,1,100, Level);
+	new Wall(31,-68,1,100, Level);
 	
 	Game.addObject(Level);
 	
