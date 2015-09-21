@@ -45,43 +45,61 @@ var Game;
 var Level;
 var Player;
 var Trampoline;
+var AudioStream;
+var LeftWall;
+var RightWall;
+var Floor;
 
 PS.init = function( system, options ) {
 	"use strict";
-
-	// Use PS.gridSize( x, y ) to set the grid to
-	// the initial dimensions you want (32 x 32 maximum)
-	// Do this FIRST to avoid problems!
-	// Otherwise you will get the default 8x8 grid
 	
-	Game = new Window(32, 32, PS.COLOR_WHITE);
-	
-	Level = new Level(32, 100);
+	Game = new Window(32, 32, PS.COLOR_RED);
+	Level = new Level(32, 1000, PS.COLOR_WHITE);
 		
 	Player = new Player(16, 12, Level);
 	Trampoline = new Trampoline(15, 27, Level);
-	//PS.debug("Init\n");
 	
-	new Wall(0,31,32,1, Level);
-	new Wall(0,-68,1,100, Level);
-	new Wall(31,-68,1,100, Level);
+	Floor = new Wall(0,31,32,1, Level);
+	LeftWall = new Wall(0,-968,1,1000, Level);
+	RightWall = new Wall(31,-968,1,1000, Level);
 	new Indicator(Player, Trampoline, Level);
 	
-	new Spawnable(8, 11, 2, 2, 0, Level);
-	new Spawnable(22, 11, 2, 2, 1, Level);
+	// new Spawnable(8, 11, 2, 2, 0, Level);
+	// new Spawnable(22, 11, 2, 2, 1, Level);
 	
 	Game.addObject(Level);
 	
 	Level.setPlayer(Player);
 	
-	//PS.gridColor ( PS.COLOR_ORANGE );
+	Game.run();
+	AudioStream = PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/"});
+	PS.statusText("Welcome to Trampoline Hell");
+};
+
+var Reset = function()
+{
+	Game.stop();
+	PS.audioStop(AudioStream);
 	
-	// Add any other initialization code you need here
+	Player.x = 16;
+	Player.y = 12;
+	Player.ySpeed = 1/30;
+	
+	Trampoline.x = 15;
+	Trampoline.y = 27;
+	
+	Floor.x = 0;
+	Floor.y = 31;
+	LeftWall.x = 0;
+	LeftWall.y = -968;
+	RightWall.x = 31;
+	RightWall.y = -968;
+	
+	Level.scrollSpeed = 0;
 	
 	Game.run();
-	
-	PS.statusText("Welcome to Trampoline Hell");
-};	
+	AudioStream = PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/"});	
+};
 
 // PS.touch ( x, y, data, options )
 // Called when the mouse button is clicked on a bead, or when a bead is touched
@@ -188,13 +206,13 @@ PS.keyDown = function( key, shift, ctrl, options ) {
 	switch (key){
 		case PS.KEY_ARROW_LEFT:
 		{
-			Player.x -= Player.horizontalSpeed;
+			Player.x -= Player.xSpeed;
 			break;
 		}
 		
 		case PS.KEY_ARROW_RIGHT:
 		{
-			Player.x += Player.horizontalSpeed;
+			Player.x += Player.xSpeed;
 			break;
 		}
 	}

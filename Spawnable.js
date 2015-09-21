@@ -16,7 +16,7 @@ var Spawnable = function(x, y, width, height, type, level){
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	if (this.type == 0){
-		PS.spriteSolidColor(this.sprite, PS.COLOR_YELLOW);
+		PS.spriteSolidColor(this.sprite, PS.COLOR_BLUE);
 	}
 	else{
 		PS.spriteSolidColor(this.sprite, PS.COLOR_RED);

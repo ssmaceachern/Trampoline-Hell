@@ -33,7 +33,7 @@ Trampoline.prototype.Update = function(){
 	}
 	
 	this.x += this.moveSpeed;
-	//PS.debug(this.level.objects.length);
+	//PS.debug(this.y + "\n");
 };
 
 Trampoline.prototype.Draw = function(offsetX, offsetY){

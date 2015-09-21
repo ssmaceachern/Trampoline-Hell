@@ -12,7 +12,6 @@
 var Window = function(width, height, color)
 {
 	GameObject.call(this, 0, 0, width, height, "Window");
-	this.color = color;
 	this.objects = [];
 	
 	PS.gridSize(this.w, this.h);
@@ -56,7 +55,8 @@ Window.prototype.Update = function(){
 };
 
 Window.prototype.Draw = function(offsetX, offsetY) {
-	//PS.color( PS.ALL, PS.ALL, this.color);
+	//PS.gridColor(this.color);
+	PS.color(PS.ALL, PS.ALL, this.color);
 	
 	for (var i = 0; i < this.objects.length; ++i) {
 		if((this.objects[i] != null)){

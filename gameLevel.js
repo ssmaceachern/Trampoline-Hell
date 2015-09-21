@@ -12,8 +12,13 @@ var Level = function(width, height, color)
 	PS.gridColor(this.color);
 	
 	this.player = null;
-	this.scrollSpeed;
+	this.scrollSpeed = 0;
 	
+	numSpawnables = 20;
+	for(i = 0; i < numSpawnables; i++)
+	{
+		new Spawnable((Math.random() * 29) + 1, -(Math.random() * 1000) - 50, 2, 2, Math.round(Math.random()), this);
+	}
 };
 
 GameObject.prototype.impart(Level);
@@ -43,9 +48,6 @@ Level.prototype.getObjectBySprite = function(sprite) {
 	}
 	
 	for(i = 0; i < this.objects.length; i++){
-		//PS.debug("Checking: "+ this.objects[i].name + "\n");
-		
-		//PS.debug(sprite + " VS " + this.objects[i].sprite + "\n");
 		
 		if(sprite == this.objects[i].sprite){
 			//PS.debug("Match found\n");
@@ -56,9 +58,10 @@ Level.prototype.getObjectBySprite = function(sprite) {
 
 Level.prototype.Update = function(){
 	//PS.debug("Update?\n");
+	this.scrollSpeed = -this.player.ySpeed;
 	for (var i = 0; i < this.objects.length; ++i) {
 		if(this.objects[i] != null){
-			this.objects[i].y = this.objects[i].y - this.player.ySpeed;
+			this.objects[i].y = this.objects[i].y + this.scrollSpeed;
 			
 			this.objects[i]._update();
 		}
@@ -66,7 +69,9 @@ Level.prototype.Update = function(){
 };
 
 Level.prototype.Draw = function(offsetX, offsetY) {
+	PS.gridColor(this.color);
 	PS.border( PS.ALL, PS.ALL, 0);
+	PS.color(PS.ALL, PS.ALL, this.color);
 	
 	for (var i = 0; i < this.objects.length; ++i) {
 		if((this.objects[i] != null)){
