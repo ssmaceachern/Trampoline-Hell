@@ -1,6 +1,7 @@
 /**
  * @author Sean
  */
+var winTimerID; 
 
 var Trampoline = function(x, y, level){
 	this.x = x;
@@ -42,11 +43,13 @@ Trampoline.prototype.Update = function(){
 	
 	if(ScoreHeight > 2000){
 		PS.statusText("You Win!\n");
+	}
+	
+	if(ScoreHeight > 2050){
 		PS.statusColor(PS.COLOR_ORANGE);
 		Reset();
 	}
 	
-	//PS.debug(this.y + "\n");
 };
 
 Trampoline.prototype.Draw = function(offsetX, offsetY){

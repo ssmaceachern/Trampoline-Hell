@@ -76,6 +76,11 @@ PS.init = function( system, options ) {
 	PS.statusText("Welcome to Trampoline Hell");
 };
 
+var GameWin = function(winTimerID){
+	PS.timerStop(winTimerID);
+	Reset();
+};
+
 var Reset = function()
 {
 	Game.stop();
