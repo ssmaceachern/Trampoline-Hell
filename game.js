@@ -54,14 +54,14 @@ PS.init = function( system, options ) {
 	"use strict";
 	
 	Game = new Window(32, 32, PS.COLOR_RED);
-	Level = new Level(32, 1000, PS.COLOR_WHITE);
+	Level = new Level(32, 2000, PS.COLOR_WHITE);
 		
 	Player = new Player(16, 12, Level);
 	Trampoline = new Trampoline(15, 27, Level);
 	
 	Floor = new Wall(0,31,32,1, Level);
-	LeftWall = new Wall(0,-968,1,1000, Level);
-	RightWall = new Wall(31,-968,1,1000, Level);
+	LeftWall = new Wall(0,-1968,1,2000, Level);
+	RightWall = new Wall(31,-1968,1,2000, Level);
 	new Indicator(Player, Trampoline, Level);
 	
 	// new Spawnable(8, 11, 2, 2, 0, Level);
@@ -91,9 +91,9 @@ var Reset = function()
 	Floor.x = 0;
 	Floor.y = 31;
 	LeftWall.x = 0;
-	LeftWall.y = -968;
+	LeftWall.y = -1968;
 	RightWall.x = 31;
-	RightWall.y = -968;
+	RightWall.y = -1968;
 	
 	Level.scrollSpeed = 0;
 	

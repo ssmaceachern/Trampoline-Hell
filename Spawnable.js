@@ -21,8 +21,8 @@ var Spawnable = function(x, y, width, height, type, level){
 	else{
 		PS.spriteSolidColor(this.sprite, PS.COLOR_RED);
 	}
-	//PS.spriteSolidColor ( this.sprite, PS.COLOR_BLACK );
 	PS.spriteMove(this.sprite, this.x, this.y);
+	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	
 	level.addObject(this);
 };
@@ -43,7 +43,19 @@ Spawnable.prototype.Draw = function(offsetX, offsetY){
 		else{
 			PS.spriteSolidColor(this.sprite, PS.COLOR_RED);
 		}
-		//PS.spriteSolidColor ( this.sprite, PS.COLOR_BLACK );
 		PS.spriteMove(this.sprite, this.x, this.y);
+	}
+};
+
+Spawnable.prototype.Collision = function(s1, p1, s2, p2, type){
+	var CollidingObject = this.level.getObjectBySprite(s2);
+	if(CollidingObject != null && CollidingObject.name == "Player"){
+		//this.level.removeObject(this);
+		
+		/*
+		 * So hacky
+		 */
+		this.x = 35;
+		this.y = 35;
 	}
 };

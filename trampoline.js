@@ -11,7 +11,8 @@ var Trampoline = function(x, y, level){
 	
 	this.level = level;
 	
-	this.moveSpeed = 1/30;
+	//Random init direction
+	this.moveSpeed = 1/30 * (Math.round(Math.random()) * 2 - 1);
 	
 	/*
 	 * Load the player sprite
@@ -27,12 +28,24 @@ var Trampoline = function(x, y, level){
 
 GameObject.prototype.impart(Trampoline);
 
+var ScoreHeight;
+
 Trampoline.prototype.Update = function(){
 	if(this.x > 26 || this.x < 2){
 		this.moveSpeed = this.moveSpeed * -1;
 	}
 	
+	ScoreHeight = Math.round(this.y);
+	
 	this.x += this.moveSpeed;
+	PS.statusText("Current Height: " + ScoreHeight + "\n");
+	
+	if(ScoreHeight > 2000){
+		PS.statusText("You Win!\n");
+		PS.statusColor(PS.COLOR_ORANGE);
+		Reset();
+	}
+	
 	//PS.debug(this.y + "\n");
 };
 

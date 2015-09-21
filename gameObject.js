@@ -13,6 +13,7 @@ var GameObject = function(x, y, w, h, name){
 	this.name = name;
 	this.time = -1;
 	this.sprite = null;
+	this.isActive = true;
 };
 
 GameObject.prototype.spriteLoader = function(image){
@@ -58,8 +59,11 @@ GameObject.prototype.getObjectBySprite = function(spr){
  * Tick function for updating an object's position and rendering
  */
 GameObject.prototype._tick = function(){
-	this._update();
-	this._draw(0, 0);
+	if(this.isActive == true)
+	{
+		this._update();
+		this._draw(0, 0);
+	}
 };
 
 /**
@@ -67,7 +71,7 @@ GameObject.prototype._tick = function(){
  */
 GameObject.prototype._update = function(){
 	this.Update();
-	this.time++;
+	this.time++;	
 };
 
 /**

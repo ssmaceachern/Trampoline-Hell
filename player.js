@@ -9,7 +9,7 @@ var Player = function(x, y, level){
 	this.h = 4;
 	this.name = "Player";
 	
-	this.color = PS.COLOR_GRAY_DARK;
+	this.color = PS.COLOR_ORANGE;
 	
 	this.level = level;
 	
@@ -42,13 +42,21 @@ Player.prototype.Draw = function(offsetX, offsetY){
 	// PS.spriteSolidColor(afterImage, this.color - 30);
 	// PS.spriteMove(afterImage, this.x, this.y - Math.sign(this.ySpeed));
 	
+	
+	this.color = PS.COLOR_ORANGE + (ScoreHeight/10);
+	//PS.debug("Color: " + this.color + "\n");
+	PS.spriteSolidColor ( this.sprite, this.color );
+	
+	
+	
 	if(this.sprite != null){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
-		PS.spriteSolidColor ( this.sprite, this.color );
+		PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
+	
 	
 	//PS.spriteDelete(afterImage);
 };
