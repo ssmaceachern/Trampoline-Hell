@@ -53,8 +53,8 @@ var Floor;
 PS.init = function( system, options ) {
 	"use strict";
 	
-	Game = new Window(32, 32, PS.COLOR_RED);
-	Level = new Level(32, 2000, PS.COLOR_WHITE);
+	Game = new Window(32, 32);
+	Level = new Level(32, 2000, PS.COLOR_ORANGE);
 		
 	Player = new Player(16, 12, Level);
 	Trampoline = new Trampoline(15, 27, Level);

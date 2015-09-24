@@ -3,13 +3,14 @@
  */
 
 var Player = function(x, y, level){
+	GameObject.call(this, x, y, 2, 4, "Player");
 	this.x = x;
 	this.y = y;
 	this.w = 2;
 	this.h = 4;
 	this.name = "Player";
 	
-	this.color = PS.COLOR_ORANGE;
+	this.color = PS.COLOR_BLACK;
 	
 	this.level = level;
 	
@@ -35,15 +36,15 @@ var Player = function(x, y, level){
 GameObject.prototype.impart(Player);
 
 Player.prototype.Draw = function(offsetX, offsetY){
+	 var afterImage = PS.spriteSolid(this.w, this.h);
+	 PS.spriteSolidColor(afterImage, this.color - 30);
+	 PS.spriteMove(afterImage, this.x - this.xSpeed, this.y - Math.sign(this.ySpeed));
+	
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
 	
-	// var afterImage = PS.spriteSolid(this.w, this.h);
-	// PS.spriteSolidColor(afterImage, this.color - 30);
-	// PS.spriteMove(afterImage, this.x, this.y - Math.sign(this.ySpeed));
-	
-	
-	this.color = PS.COLOR_ORANGE + (ScoreHeight/10);
+	var colorTone = ScoreHeight/10;
+	this.color = PS.makeRGB(colorTone,colorTone,colorTone);
 	//PS.debug("Color: " + this.color + "\n");
 	PS.spriteSolidColor ( this.sprite, this.color );
 	
@@ -53,7 +54,7 @@ Player.prototype.Draw = function(offsetX, offsetY){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
-		PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
+		PS.spriteSolidColor ( this.sprite, this.color );
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
 	

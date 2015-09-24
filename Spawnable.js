@@ -14,14 +14,20 @@ var Spawnable = function(x, y, width, height, type, level){
 	/*
 	 * Load the sprite
 	 */
-	this.sprite = PS.spriteSolid(this.w, this.h);
+	
+	
+	//this.sprite = PS.spriteSolid(this.w, this.h);
 	if (this.type == 0){
-		PS.spriteSolidColor(this.sprite, PS.COLOR_BLUE);
+		this.imageID = PS.imageLoad("holyjetpack.png", this.spriteLoader.bind(this), 4);
+		PS.debug(this.sprite + " Load jetpack\n");
+		PS.spriteMove(this.sprite, this.x, this.y);
 	}
 	else{
-		PS.spriteSolidColor(this.sprite, PS.COLOR_RED);
+		this.imageID = PS.imageLoad("lostsoul.png", this.spriteLoader.bind(this), 4);
+		PS.debug(this.sprite + "Load jetpack\n");
+		PS.spriteMove(this.sprite, this.x, this.y);
 	}
-	PS.spriteMove(this.sprite, this.x, this.y);
+	
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	
 	level.addObject(this);
@@ -36,12 +42,13 @@ Spawnable.prototype.Draw = function(offsetX, offsetY){
 	if(this.sprite != null){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
-		this.sprite = PS.spriteSolid(this.w, this.h);
-		if (this.type == 0){
-			PS.spriteSolidColor(this.sprite, PS.COLOR_YELLOW);
+		if (this.type == 0)
+		{
+			this.imageID = PS.imageLoad("holyjetpack.png", this.spriteLoader.bind(this), 4);
 		}
-		else{
-			PS.spriteSolidColor(this.sprite, PS.COLOR_RED);
+		else
+		{
+			this.imageID = PS.imageLoad("lostsoul.png", this.spriteLoader.bind(this), 4);		
 		}
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}

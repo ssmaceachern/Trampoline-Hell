@@ -12,6 +12,8 @@ var Level = function(width, height, color)
 	PS.gridSize(this.w, this.h);
 	PS.gridColor(this.color);
 	
+	PS.color( PS.ALL, PS.ALL, this.color);
+	
 	this.player = null;
 	this.scrollSpeed = 0;
 	
@@ -65,18 +67,25 @@ Level.prototype.Update = function(){
 		if(this.objects[i] != null){
 			this.objects[i].y = this.objects[i].y + this.scrollSpeed;
 			
+			if(ScoreHeight > 32 && this.objects[i].name == "Player")
+			{
+				this.objects[i].y = this.objects[i].y + this.scrollSpeed/ScoreHeight;
+			}
+			
 			this.objects[i]._update();
 		}
 	}	
 };
 
 Level.prototype.Draw = function(offsetX, offsetY) {
-	PS.gridRefresh();
+	//PS.gridColor(this.color);
 	PS.border( PS.ALL, PS.ALL, 0);
 	
 	for (var i = 0; i < this.objects.length; ++i) {
 		if(this.objects[i] != null){
+			
 			this.objects[i]._draw(offsetX, offsetY);
 		}
 	}
+	
 };
