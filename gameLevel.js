@@ -20,7 +20,7 @@ var Level = function(width, height, color)
 	numSpawnables = 20;
 	for(i = 0; i < numSpawnables; i++)
 	{
-		new Spawnable((Math.random() * 29) + 1, -(Math.random() * 1950) - 50, 2, 2, Math.round(Math.random()), this);
+		new Spawnable((Math.random() * 29) + 1, -(Math.random() * 1950) - 50, 3, 4, Math.round(Math.random()), this);
 	}
 };
 
@@ -69,7 +69,7 @@ Level.prototype.Update = function(){
 			
 			if(ScoreHeight > 32 && this.objects[i].name == "Player")
 			{
-				this.objects[i].y = this.objects[i].y + this.scrollSpeed/ScoreHeight;
+				this.objects[i].y = this.objects[i].y + this.scrollSpeed/(ScoreHeight * 0.9);
 			}
 			
 			this.objects[i]._update();

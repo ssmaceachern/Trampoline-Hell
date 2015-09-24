@@ -36,9 +36,6 @@ var Player = function(x, y, level){
 GameObject.prototype.impart(Player);
 
 Player.prototype.Draw = function(offsetX, offsetY){
-	 var afterImage = PS.spriteSolid(this.w, this.h);
-	 PS.spriteSolidColor(afterImage, this.color - 30);
-	 PS.spriteMove(afterImage, this.x - this.xSpeed, this.y - Math.sign(this.ySpeed));
 	
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
