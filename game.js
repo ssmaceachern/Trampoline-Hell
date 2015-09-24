@@ -64,9 +64,6 @@ PS.init = function( system, options ) {
 	RightWall = new Wall(31,-1968,1,2000, Level);
 	new Indicator(Player, Trampoline, Level);
 	
-	// new Spawnable(8, 11, 2, 2, 0, Level);
-	// new Spawnable(22, 11, 2, 2, 1, Level);
-	
 	Game.addObject(Level);
 	
 	Level.setPlayer(Player);

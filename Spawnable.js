@@ -49,17 +49,19 @@ Spawnable.prototype.Draw = function(offsetX, offsetY){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		if (this.type == 0){
-			this.imageID = PS.imageLoad("holyjetpack.png", this.spriteLoader.bind(this), 4);
+			PS.spriteSolidColor(this.sprite, PS.COLOR_BLUE);
+			//this.imageID = PS.imageLoad("holyjetpack.png", this.spriteLoader.bind(this), 4);
 			//PS.spriteCollide(this.sprite, this.Collision.bind(this));
 		}
 		else
 		{
-			this.imageID = PS.imageLoad("lostsoul.png", this.spriteLoader.bind(this), 4);
+			PS.spriteSolidColor(this.sprite, PS.COLOR_RED);
+			//this.imageID = PS.imageLoad("lostsoul.png", this.spriteLoader.bind(this), 4);
 			//PS.spriteCollide(this.sprite, this.Collision.bind(this));		
 		}
 		//PS.debug(this.sprite);
 		PS.spriteMove(this.sprite, this.x, this.y);
-		PS.spriteCollide(this.sprite, this.Collision.bind(this));
+		//PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	}
 };
 
