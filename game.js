@@ -40,37 +40,68 @@ See dygraphs License.txt, <http://dygraphs.com> and <http://opensource.org/licen
 // where x and y are the desired initial dimensions of the grid
 // [system] = an object containing engine and platform information; see documentation for details
 // [options] = an object with optional parameters; see documentation for details
+
 var Game;
+var Level;
 var Player;
 var Trampoline;
+var AudioStream;
+var LeftWall;
+var RightWall;
+var Floor;
 
 PS.init = function( system, options ) {
 	"use strict";
-
-	// Use PS.gridSize( x, y ) to set the grid to
-	// the initial dimensions you want (32 x 32 maximum)
-	// Do this FIRST to avoid problems!
-	// Otherwise you will get the default 8x8 grid
 	
-	Game = new Window(32, 32, PS.COLOR_WHITE);
-	Player = new Player(16, 16);
-	Trampoline = new Trampoline(15, 18);
+	Game = new Window(32, 32);
+	Level = new Level(32, 2000, PS.COLOR_ORANGE);
+		
+	Player = new Player(16, 12, Level);
+	Trampoline = new Trampoline(15, 27, Level);
 	
-	Game.addObject(new Wall(0,31,32,1));
-	Game.addObject(new Wall(0,1,1,32));
-	Game.addObject(new Wall(31,1,1,32));
+	Floor = new Wall(0,31,32,1, Level);
+	LeftWall = new Wall(0,-1968,1,2000, Level);
+	RightWall = new Wall(31,-1968,1,2000, Level);
+	new Indicator(Player, Trampoline, Level);
 	
-	Game.addObject(Trampoline);
-	Game.addObject(Player);
+	Game.addObject(Level);
 	
-	//PS.gridColor ( PS.COLOR_ORANGE );
-	
-	// Add any other initialization code you need here
+	Level.setPlayer(Player);
 	
 	Game.run();
-	
+	AudioStream = PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/"});
 	PS.statusText("Welcome to Trampoline Hell");
-};	
+};
+
+var GameWin = function(winTimerID){
+	PS.timerStop(winTimerID);
+	Reset();
+};
+
+var Reset = function()
+{
+	Game.stop();
+	PS.audioStop(AudioStream);
+	
+	Player.x = 16;
+	Player.y = 12;
+	Player.ySpeed = 1/30;
+	
+	Trampoline.x = 15;
+	Trampoline.y = 27;
+	
+	Floor.x = 0;
+	Floor.y = 31;
+	LeftWall.x = 0;
+	LeftWall.y = -1968;
+	RightWall.x = 31;
+	RightWall.y = -1968;
+	
+	Level.scrollSpeed = 0;
+	
+	Game.run();
+	AudioStream = PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/"});	
+};
 
 // PS.touch ( x, y, data, options )
 // Called when the mouse button is clicked on a bead, or when a bead is touched
@@ -177,13 +208,13 @@ PS.keyDown = function( key, shift, ctrl, options ) {
 	switch (key){
 		case PS.KEY_ARROW_LEFT:
 		{
-			Player.x -= Player.horizontalSpeed;
+			Player.x -= Player.xSpeed;
 			break;
 		}
 		
 		case PS.KEY_ARROW_RIGHT:
 		{
-			Player.x += Player.horizontalSpeed;
+			Player.x += Player.xSpeed;
 			break;
 		}
 	}

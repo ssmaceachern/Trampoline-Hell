@@ -12,11 +12,8 @@
 var Window = function(width, height, color)
 {
 	GameObject.call(this, 0, 0, width, height, "Window");
-	this.color = color;
 	this.objects = [];
-	
-	PS.gridSize(this.w, this.h);
-	PS.gridColor(this.color);
+	this.color = color;
 	
 	this.UpdateLoop = null;
 };
@@ -49,14 +46,17 @@ Window.prototype.removeObject = function(object) {
 
 Window.prototype.Update = function(){
 	for (var i = 0; i < this.objects.length; ++i) {
+		if(this.objects[i] != null){
 			this.objects[i]._update();
+		}
 	}	
 };
 
 Window.prototype.Draw = function(offsetX, offsetY) {
-	//PS.color( PS.ALL, PS.ALL, this.color);
 	
 	for (var i = 0; i < this.objects.length; ++i) {
+		if((this.objects[i] != null)){
 			this.objects[i]._draw(offsetX, offsetY);
+		}
 	}
 };
