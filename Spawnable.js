@@ -2,7 +2,7 @@
  * @author Jonas
  */
 
-var Spawnable = function(x, y, width, height, type, level){
+var Spawnable = function(x, y, width, height, type){
 	GameObject.call(this, x, y, width, height, "Spawnable");
 	this.x = x;
 	this.y = y;
@@ -10,7 +10,6 @@ var Spawnable = function(x, y, width, height, type, level){
 	this.h = height;
 	this.name = "Spawnable";
 	this.type = type;
-	this.level = level;
 	
 	/*
 	 * Load the sprite
@@ -27,16 +26,13 @@ var Spawnable = function(x, y, width, height, type, level){
 		PS.spriteSolidColor(this.sprite, PS.COLOR_RED);
 		//PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	}
-	//PS.spriteMove(this.sprite, this.x, this.y);
+
 	if(this.sprite != null || this.sprite != undefined)
 	{
 		PS.spriteMove(this.sprite, this.x, this.y);
 		PS.spriteCollide(this.sprite, this.Collision.bind(this));	
 	}
-	
-	//PS.debug("Spawn init: " + this.sprite + "\n");
-	
-	level.addObject(this);
+
 };
 
 GameObject.prototype.impart(Spawnable);
@@ -68,11 +64,7 @@ Spawnable.prototype.Draw = function(offsetX, offsetY){
 Spawnable.prototype.Collision = function(s1, p1, s2, p2, type){
 	var CollidingObject = this.level.getObjectBySprite(s2);
 	if(CollidingObject != null && CollidingObject.name == "Player"){
-		//this.level.removeObject(this);
-		//PS.debug("Collision!\n")
-		/*
-		 * So hacky
-		 */
+		
 		this.x = 35;
 		this.y = 35;
 	}

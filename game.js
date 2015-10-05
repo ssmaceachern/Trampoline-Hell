@@ -43,64 +43,21 @@ See dygraphs License.txt, <http://dygraphs.com> and <http://opensource.org/licen
 
 var Game;
 var Level;
-var Player;
-var Trampoline;
-var AudioStream;
-var LeftWall;
-var RightWall;
-var Floor;
 
 PS.init = function( system, options ) {
 	"use strict";
 	
-	Game = new Window(32, 32);
-	Level = new Level(32, 2000, PS.COLOR_ORANGE);
-		
-	Player = new Player(16, 12, Level);
-	Trampoline = new Trampoline(15, 27, Level);
+	Game = new Window(32, 32, PS.COLOR_ORANGE);
+	Level = new Level(Game);
 	
-	Floor = new Wall(0,31,32,1, Level);
-	LeftWall = new Wall(0,-1968,1,2000, Level);
-	RightWall = new Wall(31,-1968,1,2000, Level);
-	new Indicator(Player, Trampoline, Level);
+	Level.StartGame();
 	
-	Game.addObject(Level);
-	
-	Level.setPlayer(Player);
-	
-	Game.run();
-	AudioStream = PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/"});
 	PS.statusText("Welcome to Trampoline Hell");
 };
 
 var GameWin = function(winTimerID){
 	PS.timerStop(winTimerID);
 	Reset();
-};
-
-var Reset = function()
-{
-	Game.stop();
-	PS.audioStop(AudioStream);
-	
-	Player.x = 16;
-	Player.y = 12;
-	Player.ySpeed = 1/30;
-	
-	Trampoline.x = 15;
-	Trampoline.y = 27;
-	
-	Floor.x = 0;
-	Floor.y = 31;
-	LeftWall.x = 0;
-	LeftWall.y = -1968;
-	RightWall.x = 31;
-	RightWall.y = -1968;
-	
-	Level.scrollSpeed = 0;
-	
-	Game.run();
-	AudioStream = PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/"});	
 };
 
 // PS.touch ( x, y, data, options )
@@ -205,19 +162,7 @@ PS.keyDown = function( key, shift, ctrl, options ) {
 
 	// Add code here for when a key is pressed
 	
-	switch (key){
-		case PS.KEY_ARROW_LEFT:
-		{
-			Player.x -= Player.xSpeed;
-			break;
-		}
-		
-		case PS.KEY_ARROW_RIGHT:
-		{
-			Player.x += Player.xSpeed;
-			break;
-		}
-	}
+	Game.keyDown(key);
 };
 
 // PS.keyUp ( key, shift, ctrl, options )
@@ -237,6 +182,7 @@ PS.keyUp = function( key, shift, ctrl, options ) {
 	// PS.debug( "PS.keyUp(): key = " + key + ", shift = " + shift + ", ctrl = " + ctrl + "\n" );
 
 	// Add code here for when a key is released
+	Game.keyUp(key);
 };
 
 // PS.swipe ( data, options )

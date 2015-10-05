@@ -2,90 +2,120 @@
  * @author Sean
  */
 
-var Level = function(width, height, color)
+/**
+ *	Class for handling game states 
+ * @param {Object} game
+ */
+var Level = function(game)
 {
-	GameObject.call(this, 0, 0, width, height, "Level");
-	this.objects = [];
-	this.color = color;
-	this.name = "Level";
-	
-	PS.gridSize(this.w, this.h);
-	PS.gridColor(this.color);
-	
-	PS.color( PS.ALL, PS.ALL, this.color);
-	
-	this.player = null;
-	this.scrollSpeed = 0;
-	
-	numSpawnables = 20;
-	for(i = 0; i < numSpawnables; i++)
-	{
-		new Spawnable((Math.random() * 29) + 1, -(Math.random() * 1950) - 50, 3, 4, Math.round(Math.random()), this);
+	if(game != null){
+		GameObject.call(this, 0, 0, game.w, game.h, "Level");
+		this.Game = game;
+		
+		this.objects = game.objects;
+		
+		this.name = "Level";
+		
+		this.active = true;
+		
+		this.MODES = {
+			Start 	: this.StartGame,
+			Play 	: this.PlayGame,
+			Pause 	: this.PauseGame,
+			End 	: this.EndGame
+		};
+		
+		this.CurrentMode = null;
 	}
 };
 
 GameObject.prototype.impart(Level);
 
-Level.prototype.addObject = function(object) {
-	this.objects.push(object);
+Level.prototype.StartGame = function(){
+	this.CurrentMode = this.MODES.Start;
+	
+	PS.statusText("Press Enter to Start");
+	
+	PS.debug("Player start game\n");
+	
+	this.Game.addObject(this);
+	
+	Game.run();
+};
+
+Level.prototype.PlayGame = function(){
+	this.CurrentMode = this.MODES.Play;
+	
+	this.Game.addObject(new Player(16, 12));
+	this.Game.addObject(new Trampoline(15, 27));
+	
+	this.Game.addObject(new Wall(0,31,32,1));
+	this.Game.addObject(new Wall(0,-1968,1,2000));
+	this.Game.addObject(new Wall(31,-1968,1,2000));
+	this.Game.addObject(new Indicator());
 	
 };
 
-Level.prototype.removeObject = function(object) {
-	if(object.sprite != null){
-		object.isActive = false;
-		PS.spriteDelete(object.sprite);
-	}
-	var ind = this.objects.indexOf(object);
-	this.objects.splice(ind, 1);
+Level.prototype.PauseGame = function(){
+	this.CurrentMode = this.MODES.Pause;
 };
 
-Level.prototype.setPlayer = function(object){
-	this.player = object;
-};
-
-Level.prototype.getObjectBySprite = function(sprite) {
-	//PS.debug("Function call\n");
-	if(this.objects.length == 0)
-	{
-		return -1;
-	}
+Level.prototype.EndGame = function(){
+	this.CurrentMode = this.MODES.End;
 	
-	for(i = 0; i < this.objects.length; i++){
-		
-		if(sprite == this.objects[i].sprite){
-			//PS.debug("Match found\n");
-			return this.objects[i];
-		}
-	}
+	PS.statusText("Press Enter to Restart");
+	
+	this.Game.removeAllObjectsFromLevel();
+	
+};
+
+Level.prototype.GetCurrentMode = function(){
+	return this.CurrentMode;
 };
 
 Level.prototype.Update = function(){
-	//PS.debug("Update?\n");
-	this.scrollSpeed = -this.player.ySpeed;
-	for (var i = 0; i < this.objects.length; ++i) {
-		if(this.objects[i] != null){
-			this.objects[i].y = this.objects[i].y + this.scrollSpeed;
-			
-			if(ScoreHeight > 32 && this.objects[i].name == "Player")
-			{
-				this.objects[i].y = this.objects[i].y + this.scrollSpeed/(ScoreHeight * 0.9);
+	
+	switch(this.CurrentMode){
+		case this.MODES.Start:
+			if(Game.getKey(PS.KEY_ENTER) === 1){
+				PS.debug("Player start game\n");
+				this.CurrentMode = this.MODES.Play;
+				this.CurrentMode();
 			}
-			
-			this.objects[i]._update();
-		}
-	}	
+			break;
+		case this.MODES.Play:
+			break;
+		case this.MODES.Pause:
+			break;
+		case this.MODES.End:
+			if(Game.getKey(PS.KEY_ENTER) === 1){
+				location.reload();
+				//this.CurrentMode = this.MODES.Play;
+				//this.CurrentMode();
+			}
+			break;
+		default:
+			break;
+	}
+	
+	//PS.debug(this.CurrentMode + "\n");
 };
 
 Level.prototype.Draw = function(offsetX, offsetY) {
-	//PS.gridColor(this.color);
-	PS.border( PS.ALL, PS.ALL, 0);
-	
-	for (var i = 0; i < this.objects.length; ++i) {
-		if(this.objects[i] != null){
-			
-			this.objects[i]._draw(offsetX, offsetY);
+	if(this.sprite == null)
+	{
+		switch(this.CurrentMode){
+			case this.MODES.Start:
+			//PS.imageLoad("title.png", this.spriteLoader.bind(this), 4);
+			break;
+			case this.MODES.End:
+			//PS.imageLoad("lose.png", this.spriteLoader.bind(this), 4);
+			break;
 		}
+	
+	}
+	else{
+		PS.spriteMove(this.sprite, this.x, this.y);	
 	}
 	
 };

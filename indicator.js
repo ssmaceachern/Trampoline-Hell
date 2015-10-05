@@ -6,9 +6,9 @@
  * @author Sean
  */
 
-var Indicator = function(player, trampoline, level){
-	this.player = player;
-	this.target = trampoline;
+var Indicator = function(){
+	this.player = Game.GetObjectByName("Player");
+	this.target = Game.GetObjectByName("Trampoline");
 	
 	this.x = this.target.x;
 	this.y = this.target.y;
@@ -16,14 +16,10 @@ var Indicator = function(player, trampoline, level){
 	this.h = 3;
 	this.name = "Indicator";
 	
-	this.level = level;
-	
 	/*
 	 * Load the player sprite
 	 */
-	this.imageID = PS.imageLoad("indicator.png", this.spriteLoader.bind(this), 4);
-	
-	level.addObject(this);
+	this.imageID = PS.imageLoad("images/indicator.png", this.spriteLoader.bind(this), 4);
 };
 
 GameObject.prototype.impart(Indicator);
@@ -36,7 +32,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 	if(this.sprite != null){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
-		this.imageID = PS.imageLoad("indicator.png", this.spriteLoader.bind(this), 4);
+		this.imageID = PS.imageLoad("images/indicator.png", this.spriteLoader.bind(this), 4);
 	}
 	
 	if(this.target.y > 35)
@@ -49,13 +45,13 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 
 Indicator.prototype.Update = function(){
 	
+	if(this.player == undefined || this.player == null){
+		this.player = game.GetObjectByName("Player");
+		this.target = game.GetObjectByName("Trampoline");
+	}
+	
 	this.x = this.target.x + 1;
 	this.y = Math.floor(this.player.y) + 13;	
 	
 	//PS.debug("Y Position:" + this.y + "\n");
-};
-
-Indicator.prototype.setLevel = function(level)
-{
-	this.level = level;
 };
