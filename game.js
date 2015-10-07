@@ -40,43 +40,20 @@ See dygraphs License.txt, <http://dygraphs.com> and <http://opensource.org/licen
 // where x and y are the desired initial dimensions of the grid
 // [system] = an object containing engine and platform information; see documentation for details
 // [options] = an object with optional parameters; see documentation for details
+
 var Game;
-var Player;
-var Trampoline;
 var Level;
 
 PS.init = function( system, options ) {
 	"use strict";
-
-	// Use PS.gridSize( x, y ) to set the grid to
-	// the initial dimensions you want (32 x 32 maximum)
-	// Do this FIRST to avoid problems!
-	// Otherwise you will get the default 8x8 grid
 	
-	Game = new Window(32, 32, PS.COLOR_WHITE);
-	Player = new Player(16, 12);
+	Game = new Window(32, 32, PS.COLOR_ORANGE);
+	Level = new Level(Game);
 	
-	Trampoline = new Trampoline(15, 29);
-	
-	Level = new Level(32, 100, PS.COLOR_WHITE, Player);
-	
-	Level.addObject(new Wall(0,31,32,1));
-	Level.addObject(new Wall(0,1,1,32));
-	Level.addObject(new Wall(31,1,1,32));
-	
-	Level.addObject(Trampoline);
-	Level.addObject(Player);
-	
-	Game.addObject(Level);
-	
-	//PS.gridColor ( PS.COLOR_ORANGE );
-	
-	// Add any other initialization code you need here
-	
-	Game.run();
+	Level.StartGame();
 	
 	PS.statusText("Welcome to Trampoline Hell");
-};	
+};
 
 // PS.touch ( x, y, data, options )
 // Called when the mouse button is clicked on a bead, or when a bead is touched
@@ -180,19 +157,7 @@ PS.keyDown = function( key, shift, ctrl, options ) {
 
 	// Add code here for when a key is pressed
 	
-	switch (key){
-		case PS.KEY_ARROW_LEFT:
-		{
-			Player.x -= Player.horizontalSpeed;
-			break;
-		}
-		
-		case PS.KEY_ARROW_RIGHT:
-		{
-			Player.x += Player.horizontalSpeed;
-			break;
-		}
-	}
+	Game.keyDown(key);
 };
 
 // PS.keyUp ( key, shift, ctrl, options )
@@ -212,6 +177,7 @@ PS.keyUp = function( key, shift, ctrl, options ) {
 	// PS.debug( "PS.keyUp(): key = " + key + ", shift = " + shift + ", ctrl = " + ctrl + "\n" );
 
 	// Add code here for when a key is released
+	Game.keyUp(key);
 };
 
 // PS.swipe ( data, options )

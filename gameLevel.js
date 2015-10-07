@@ -2,37 +2,75 @@
  * @author Sean
  */
 
-var Level = function(width, height, color, player)
+/**
+ *	Class for handling game states 
+ * @param {Object} game
+ */
+var Level = function(game)
 {
-	GameObject.call(this, 0, 0, width, height, "Level");
-	this.color = color;
-	this.objects = [];
-	this.name = "Level";
-	
-	this.player = player;
-	
-	PS.gridSize(this.w, this.h);
-	PS.gridColor(this.color);
-	
-	this.scrollSpeed = 0;
-	
-	var image;
-	this.image = PS.imageLoad("levelimage.bmp", imageLoader);
-	//PS.spriteSolidColor ( this.sprite, PS.COLOR_WHITE );
-	//PS.spriteMove(this.sprite, this.x, this.y);
-	
+	if(game != null){
+		GameObject.call(this, 0, 0, game.w, game.h, "Level");
+		this.Game = game;
+		
+		this.objects = game.objects;
+		
+		this.name = "Level";
+		
+		this.active = true;
+		
+		this.MODES = {
+			Start 	: this.StartGame,
+			Play 	: this.PlayGame,
+			Pause 	: this.PauseGame,
+			End 	: this.EndGame
+		};
+		
+		this.CurrentMode = null;
+	}
 };
-
-function imageLoader(image){
-	PS.imageBlit(image, 0, -68);
-}
 
 GameObject.prototype.impart(Level);
 
-Level.prototype.addObject = function(object) {
-	this.objects.push(object);
+Level.prototype.StartGame = function(){
+	this.CurrentMode = this.MODES.Start;
+	
+	PS.statusText("Press Enter to Start");
+	
+	PS.debug("Player start game\n");
+	
+	this.Game.addObject(this);
+	
+	Game.run();
 };
 
+Level.prototype.PlayGame = function(){
+	this.CurrentMode = this.MODES.Play;
+	
+	this.Game.addObject(new Player(16, 12));
+	this.Game.addObject(new Trampoline(15, 27));
+	
+	this.Game.addObject(new Wall(0,31,32,1));
+	this.Game.addObject(new Wall(0,-1968,1,2000));
+	this.Game.addObject(new Wall(31,-1968,1,2000));
+	this.Game.addObject(new Indicator());
+	
+};
+
+Level.prototype.PauseGame = function(){
+	this.CurrentMode = this.MODES.Pause;
+};
+>>>>>>> 04dff062f29bc4705a3fd09f22505b81de0cfb56
+
+Level.prototype.EndGame = function(){
+	this.CurrentMode = this.MODES.End;
+	
+	PS.statusText("Press Enter to Restart");
+	
+	this.Game.removeAllObjectsFromLevel();
+	
+};
+
+<<<<<<< HEAD
 Level.prototype.getObjectbySprite = function(sprite)
 {
 	for(var n = 0; n < this.objects.length; ++n){
@@ -41,19 +79,55 @@ Level.prototype.getObjectbySprite = function(sprite)
 			return this.objects[n];
 		}
 	}
+=======
+Level.prototype.GetCurrentMode = function(){
+	return this.CurrentMode;
+>>>>>>> 04dff062f29bc4705a3fd09f22505b81de0cfb56
 };
 
 Level.prototype.Update = function(){
-	//PS.debug("Update?\n");
-	for (var i = 0; i < this.objects.length; ++i) {
-			this.objects[i]._update();
-	}	
+	
+	switch(this.CurrentMode){
+		case this.MODES.Start:
+			if(Game.getKey(PS.KEY_ENTER) === 1){
+				PS.debug("Player start game\n");
+				this.CurrentMode = this.MODES.Play;
+				this.CurrentMode();
+			}
+			break;
+		case this.MODES.Play:
+			break;
+		case this.MODES.Pause:
+			break;
+		case this.MODES.End:
+			if(Game.getKey(PS.KEY_ENTER) === 1){
+				location.reload();
+				//this.CurrentMode = this.MODES.Play;
+				//this.CurrentMode();
+			}
+			break;
+		default:
+			break;
+	}
+	
+	//PS.debug(this.CurrentMode + "\n");
 };
 
 Level.prototype.Draw = function(offsetX, offsetY) {
-	//PS.color( PS.ALL, PS.ALL, this.color);
+	if(this.sprite == null)
+	{
+		switch(this.CurrentMode){
+			case this.MODES.Start:
+			//PS.imageLoad("title.png", this.spriteLoader.bind(this), 4);
+			break;
+			case this.MODES.End:
+			//PS.imageLoad("lose.png", this.spriteLoader.bind(this), 4);
+			break;
+		}
 	
-	for (var i = 0; i < this.objects.length; ++i) {
-			this.objects[i]._draw(offsetX, offsetY + this.scrollSpeed);
 	}
+	else{
+		PS.spriteMove(this.sprite, this.x, this.y);	
+	}
+	
 };

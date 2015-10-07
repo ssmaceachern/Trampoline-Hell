@@ -1,41 +1,45 @@
 /**
  * @author Sean
  */
+var winTimerID; 
 
 var Trampoline = function(x, y){
-	this.x = x;
-	this.y = y;
-	this.w = 4;
-	this.h = 2;
-	this.name = "Trampoline";
+	GameObject.call(this, x, y, 5, 2, "Trampoline");
 	
-	this.moveSpeed = 1/30;
+	//Random init direction
+	this.moveSpeed = 1/30 * (Math.round(Math.random()) * 2 - 1);
+	
+	this.collidable = true;
 	
 	/*
-	 * Load the player sprite
+	 * Load the trampoline sprite
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
-	PS.spriteMove(this.sprite, this.x, this.y);
-	
-	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 };
 
 GameObject.prototype.impart(Trampoline);
 
+var ScoreHeight;
+
 Trampoline.prototype.Update = function(){
+	
 	if (this.x + this.moveSpeed > 28 || this.x + this.moveSpeed < 1){
 		this.moveSpeed = this.moveSpeed * -1;
 	}
+
 	this.x += this.moveSpeed;
+	PS.statusText("Current Height: " + ScoreHeight + "\n");
+	
+	if(ScoreHeight > 2000){
+		PS.statusText("You Win!\n");
+	}
+	
 };
 
 Trampoline.prototype.Draw = function(offsetX, offsetY){
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
-	
-	PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
-	PS.spriteMove(this.sprite, this.x, this.y);
 	
 	if(this.sprite != null){
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
@@ -45,13 +49,3 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
 };
-/*
-Trampoline.prototype.Collision = function(s1, p1, s2, p2, type){
-	var CollidingObject = Level.prototype.getObjectBySprite(s2);
-	PS.debug(CollidingObject.name);
-	if(CollidingObject.name == "Wall"){
-		this.moveSpeed *= -1;
-	}
-	
-};
-*/

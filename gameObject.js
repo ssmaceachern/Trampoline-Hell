@@ -11,14 +11,26 @@ var GameObject = function(x, y, w, h, name){
 	this.w = w;
 	this.h = h;
 	this.name = name;
+	
 	this.time = -1;
 	this.sprite = null;
+	
+	this.active = true;
+	this.remove = false;
+	
+	this.collidable = false;
 };
 
 GameObject.prototype.spriteLoader = function(image){
 	//Load Ball Sprite
 	if(this.sprite == null){
-		this.sprite = PS.spriteImage(image);	
+		this.sprite = PS.spriteImage(image);
+		
+		if(this.collidable == true)
+		{
+			PS.spriteCollide(this.sprite, this.Collision.bind(this));	
+		}
+			
 	}
 };
 
@@ -48,12 +60,18 @@ GameObject.prototype.contains = function(x, y){
 	return (x >= this.x) && (y >= this.y) && (x < this.x + this.w) && (y < this.y + this.h);
 };
 
+GameObject.prototype.getObjectBySprite = function(spr){
+	if(spr == this.sprite){
+		return this;
+	}
+};
+
 /**
  * Tick function for updating an object's position and rendering
  */
 GameObject.prototype._tick = function(){
-	this._update();
-	this._draw(0, 0);
+		this._update();
+		this._draw(0, 0);
 };
 
 /**
@@ -61,7 +79,7 @@ GameObject.prototype._tick = function(){
  */
 GameObject.prototype._update = function(){
 	this.Update();
-	this.time++;
+	this.time++;	
 };
 
 /**
