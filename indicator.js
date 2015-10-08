@@ -13,7 +13,7 @@ var Indicator = function(){
 	this.x = this.target.x;
 	this.y = this.target.y;
 	this.w = 3;
-	this.h = 3;
+	this.h = 2;
 	this.name = "Indicator";
 	
 	/*
@@ -35,7 +35,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 		this.imageID = PS.imageLoad("images/indicator.png", this.spriteLoader.bind(this), 4);
 	}
 	
-	if(this.target.y > 35)
+	if(this.player.y < 0)
 	{
 		PS.spriteShow ( this.sprite, true );
 	}else if(this.sprite != null){

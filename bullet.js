@@ -2,8 +2,8 @@
  * @author Sean
  */
 
-var Wall = function(x, y, width, height){
-	GameObject.call(this, x, y, width, height, "Wall");
+var Bullet = function(x, y, width, height){
+	GameObject.call(this, x, y, width, height, "Bullet");
 	
 	this.moveSpeed = 1/30;
 	
@@ -11,13 +11,13 @@ var Wall = function(x, y, width, height){
 	 * Load the sprite
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
-	PS.spriteSolidColor (this.sprite, PS.COLOR_RED);
+	PS.spriteSolidColor (this.sprite, PS.COLOR_BLUE);
 	PS.spriteMove(this.sprite, this.x, this.y);
 };
 
-GameObject.prototype.impart(Wall);
+GameObject.prototype.impart(Bullet);
 
-Wall.prototype.Draw = function(offsetX, offsetY){
+Bullet.prototype.Draw = function(offsetX, offsetY){
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
 	
@@ -30,8 +30,8 @@ Wall.prototype.Draw = function(offsetX, offsetY){
 	}
 };
 
-Wall.prototype.Update = function(){
+Bullet.prototype.Update = function(){
 	
-	//PS.debug(this.x +", " + this.y + "\n");
+	this.y += this.moveSpeed;
 	
 };

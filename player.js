@@ -9,19 +9,15 @@ var Player = function(x, y){
 	
 	this.moveSpeed = 1/30;
 	this.ySpeed = 1/30;
-	this.yMaxSpeed = 5;
+	this.yMaxSpeed = 1;
 	this.yAcceleration = 1/120;
-	
-	this.xSpeed = 1;
-	
-	this.collidable = true;
-	
-	this.bounce_count = 0;
+			
 	/*
 	 * Load the player sprite
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, this.color );
+	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 };
 
 GameObject.prototype.impart(Player);
@@ -31,15 +27,7 @@ Player.prototype.Draw = function(offsetX, offsetY){
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
 	
-	var colorTone = ScoreHeight/10;
-	this.color = PS.makeRGB(colorTone,colorTone,colorTone);
-	//PS.debug("Color: " + this.color + "\n");
-	PS.spriteSolidColor ( this.sprite, this.color );
-	
-	
-	
 	if(this.sprite != null){
-		
 		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
@@ -47,11 +35,21 @@ Player.prototype.Draw = function(offsetX, offsetY){
 		PS.spriteMove(this.sprite, this.x, this.y);
 	}
 	
-	};
+};
 
 Player.prototype.Update = function(){
 	
-	if(this.x > 28)
+	if((Game.getKey(PS.KEY_ARROW_LEFT) === 1))
+	{
+		this.x -= 0.5;
+	}
+	
+	if((Game.getKey(PS.KEY_ARROW_RIGHT) === 1))
+	{
+		this.x += 0.5;				
+	}
+	
+	if(this.x > 29)
 	{
 		this.x--;
 	}else if(this.x < 2){
@@ -66,22 +64,22 @@ Player.prototype.Update = function(){
 		this.ySpeed = this.yMaxSpeed;
 	}
 	
+	//PS.debug(this.x +", " + this.y + "\n");
 };
 
 Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	
-	var CollidingObject = this.level.getObjectBySprite(s2);
+	var CollidingObject = Game.GetObjectBySprite(s2);
 	if(CollidingObject == null){
 		return;
 	}
 	
 	if(CollidingObject.name == "Trampoline"){
-		PS.debug("Hello\n");
-		this.ySpeed = this.ySpeed * -1.2;
+		this.ySpeed = -1.2 * this.ySpeed;
 	}
 	
-	if(CollidingObject.name == "Wall"){
-		
+	if(CollidingObject.name == "Bullet" || CollidingObject.name == "Wall"){
+		Level.EndGame();
 	}
 	
 	if(CollidingObject.name == "Spawnable"){

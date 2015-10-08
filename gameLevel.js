@@ -15,6 +15,8 @@ var Level = function(game)
 		this.objects = game.objects;
 		
 		this.name = "Level";
+		//this.spawner = new BulletSpawner(1, 1, this);
+		this.camera = new Camera(0, 0, 32, 32);
 		
 		this.active = true;
 		
@@ -36,15 +38,21 @@ Level.prototype.StartGame = function(){
 	
 	PS.statusText("Press Enter to Start");
 	
-	PS.debug("Player start game\n");
-	
 	this.Game.addObject(this);
 	
 	Game.run();
 };
 
+Level.prototype.SpawnBullet = function(){
+	var randX = Math.random() * 32;
+	this.Game.addObject(new Bullet(randX, -5, 1, 2));
+};
+
 Level.prototype.PlayGame = function(){
 	this.CurrentMode = this.MODES.Play;
+	
+	//this.Game.addObject(this.spawner);
+	this.Game.addObject(this.camera);
 	
 	this.Game.addObject(new Player(16, 12));
 	this.Game.addObject(new Trampoline(15, 27));
@@ -54,12 +62,14 @@ Level.prototype.PlayGame = function(){
 	this.Game.addObject(new Wall(31,-1968,1,2000));
 	this.Game.addObject(new Indicator());
 	
+	this.camera.LoadCamera(this.Game);
+	//PS.timerStart(120, this.SpawnBullet);
+	
 };
 
 Level.prototype.PauseGame = function(){
 	this.CurrentMode = this.MODES.Pause;
 };
->>>>>>> 04dff062f29bc4705a3fd09f22505b81de0cfb56
 
 Level.prototype.EndGame = function(){
 	this.CurrentMode = this.MODES.End;
@@ -70,7 +80,6 @@ Level.prototype.EndGame = function(){
 	
 };
 
-<<<<<<< HEAD
 Level.prototype.getObjectbySprite = function(sprite)
 {
 	for(var n = 0; n < this.objects.length; ++n){
@@ -79,10 +88,10 @@ Level.prototype.getObjectbySprite = function(sprite)
 			return this.objects[n];
 		}
 	}
-=======
+};
+
 Level.prototype.GetCurrentMode = function(){
 	return this.CurrentMode;
->>>>>>> 04dff062f29bc4705a3fd09f22505b81de0cfb56
 };
 
 Level.prototype.Update = function(){
@@ -90,12 +99,20 @@ Level.prototype.Update = function(){
 	switch(this.CurrentMode){
 		case this.MODES.Start:
 			if(Game.getKey(PS.KEY_ENTER) === 1){
-				PS.debug("Player start game\n");
 				this.CurrentMode = this.MODES.Play;
 				this.CurrentMode();
 			}
 			break;
 		case this.MODES.Play:
+			
+			// for(i = 0; i < 120; i++){
+				// if(i == 120){
+					// PS.debug("Bullet Spawn\n");
+					// this.SpawnBullet();
+					// i = 0;
+				// }
+			// }
+		
 			break;
 		case this.MODES.Pause:
 			break;
@@ -110,7 +127,6 @@ Level.prototype.Update = function(){
 			break;
 	}
 	
-	//PS.debug(this.CurrentMode + "\n");
 };
 
 Level.prototype.Draw = function(offsetX, offsetY) {

@@ -12,6 +12,9 @@ var GameObject = function(x, y, w, h, name){
 	this.h = h;
 	this.name = name;
 	
+	this.originY = y;
+	this.originX = x;
+	
 	this.time = -1;
 	this.sprite = null;
 	
