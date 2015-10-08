@@ -19,14 +19,14 @@ Camera.prototype.LoadCamera = function(game){
 	this.target 	= game.GetObjectByName("Player");
 };
 
-Camera.prototype.DistanceFromOrigin = function(){
-	var distance = Math.abs((this.h - 3) - this.target.y);
+Camera.prototype.DistanceFromOrigin = function(object){
+	var distance = Math.abs(this.target.y - object.originY) - this.target.ySpeed;
 	PS.debug("Player distance from origin: " + distance + "\n");
 	return distance;
 };
 
 Camera.prototype.TranslateObject = function(object){
-	object.y = object.originY + this.DistanceFromOrigin();
+	object.y = this.DistanceFromOrigin(object);// + this.target.ySpeed;
 };
 
 Camera.prototype.Draw = function(offsetX, offsetY){
@@ -34,13 +34,9 @@ Camera.prototype.Draw = function(offsetX, offsetY){
 };
 
 Camera.prototype.Update = function(){
-	//this.DistanceFromOrigin();
-	this.y = this.target.y - (this.h/2);
-	
-	
-	//this.TranslateObject(this.objects[i]);
-	
-	if(this.target.y < 24){
+	this.y = this.target.y;
+
+	if(this.target.y < 32){
 		for(i = 0; i < this.objects.length; i++){
 			
 			//this.TranslateObject(this.objects[i]);
@@ -48,7 +44,7 @@ Camera.prototype.Update = function(){
 			if(this.objects[i].name != this.target.name){
 				this.TranslateObject(this.objects[i]);
 			}else{
-				//this.target.y = this.objects[i].ySpeed;
+				this.target.y = this.target.y + this.target.ySpeed;
 			}
 		}
 	}

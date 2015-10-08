@@ -49,7 +49,12 @@ Player.prototype.Update = function(){
 		this.x += 0.5;				
 	}
 	
-	if(this.x > 29)
+	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1))
+	{
+		this.ySpeed += 0.05;				
+	}
+	
+	if(this.x > 28)
 	{
 		this.x--;
 	}else if(this.x < 2){
@@ -75,7 +80,7 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	}
 	
 	if(CollidingObject.name == "Trampoline"){
-		this.ySpeed = -1.2 * this.ySpeed;
+		this.ySpeed = -this.ySpeed;
 	}
 	
 	if(CollidingObject.name == "Bullet" || CollidingObject.name == "Wall"){

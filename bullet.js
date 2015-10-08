@@ -13,6 +13,8 @@ var Bullet = function(x, y, width, height){
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor (this.sprite, PS.COLOR_BLUE);
 	PS.spriteMove(this.sprite, this.x, this.y);
+	
+	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 };
 
 GameObject.prototype.impart(Bullet);
@@ -33,5 +35,18 @@ Bullet.prototype.Draw = function(offsetX, offsetY){
 Bullet.prototype.Update = function(){
 	
 	this.y += this.moveSpeed;
+	
+};
+
+Bullet.prototype.Collision = function(s1, p1, s2, p2, type){
+	
+	var CollidingObject = Game.GetObjectBySprite(s2);
+	if(CollidingObject == null){
+		return;
+	}
+	
+	if(CollidingObject.name == "Wall" || CollidingObject.name == "Trampoline"){
+		this.remove = true;
+	}
 	
 };

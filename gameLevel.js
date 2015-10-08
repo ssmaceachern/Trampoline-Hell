@@ -15,8 +15,9 @@ var Level = function(game)
 		this.objects = game.objects;
 		
 		this.name = "Level";
-		//this.spawner = new BulletSpawner(1, 1, this);
-		this.camera = new Camera(0, 0, 32, 32);
+		this.spawner = new BulletSpawner(1, 1, this);
+		
+		//this.camera = new Camera(0, 0, 32, 32);
 		
 		this.active = true;
 		
@@ -28,6 +29,7 @@ var Level = function(game)
 		};
 		
 		this.CurrentMode = null;
+		PS.imageLoad("images/title.png", this.spriteLoader.bind(this), 4);
 	}
 };
 
@@ -51,19 +53,20 @@ Level.prototype.SpawnBullet = function(){
 Level.prototype.PlayGame = function(){
 	this.CurrentMode = this.MODES.Play;
 	
+	PS.spriteShow(this.sprite, false);
+	
 	//this.Game.addObject(this.spawner);
-	this.Game.addObject(this.camera);
+	//this.Game.addObject(this.camera);
 	
 	this.Game.addObject(new Player(16, 12));
-	this.Game.addObject(new Trampoline(15, 27));
+	this.Game.addObject(new Trampoline(15, 28));
 	
 	this.Game.addObject(new Wall(0,31,32,1));
 	this.Game.addObject(new Wall(0,-1968,1,2000));
 	this.Game.addObject(new Wall(31,-1968,1,2000));
 	this.Game.addObject(new Indicator());
 	
-	this.camera.LoadCamera(this.Game);
-	//PS.timerStart(120, this.SpawnBullet);
+	//this.camera.LoadCamera(this.Game);
 	
 };
 
@@ -72,6 +75,9 @@ Level.prototype.PauseGame = function(){
 };
 
 Level.prototype.EndGame = function(){
+	this.sprite = null;
+	PS.imageLoad("images/lose.png", this.spriteLoader.bind(this), 4);
+	
 	this.CurrentMode = this.MODES.End;
 	
 	PS.statusText("Press Enter to Restart");
@@ -134,10 +140,10 @@ Level.prototype.Draw = function(offsetX, offsetY) {
 	{
 		switch(this.CurrentMode){
 			case this.MODES.Start:
-			//PS.imageLoad("title.png", this.spriteLoader.bind(this), 4);
+			PS.imageLoad("images/title.png", this.spriteLoader.bind(this), 4);
 			break;
 			case this.MODES.End:
-			//PS.imageLoad("lose.png", this.spriteLoader.bind(this), 4);
+			PS.imageLoad("images/lose.png", this.spriteLoader.bind(this), 4);
 			break;
 		}
 	

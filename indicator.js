@@ -35,7 +35,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 		this.imageID = PS.imageLoad("images/indicator.png", this.spriteLoader.bind(this), 4);
 	}
 	
-	if(this.player.y < 0)
+	if(this.player.y < 16)
 	{
 		PS.spriteShow ( this.sprite, true );
 	}else if(this.sprite != null){
@@ -46,8 +46,8 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 Indicator.prototype.Update = function(){
 	
 	if(this.player == undefined || this.player == null){
-		this.player = game.GetObjectByName("Player");
-		this.target = game.GetObjectByName("Trampoline");
+		this.player = Game.GetObjectByName("Player");
+		this.target = Game.GetObjectByName("Trampoline");
 	}
 	
 	this.x = this.target.x + 1;

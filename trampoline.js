@@ -3,7 +3,7 @@
  */
 
 var Trampoline = function(x, y){
-	GameObject.call(this, x, y, 5, 2, "Trampoline");
+	GameObject.call(this, x, y, 11, 2, "Trampoline");
 	
 	//Random init direction
 	this.moveSpeed = 1/30 * (Math.round(Math.random()) * 2 - 1);
@@ -18,7 +18,7 @@ var Trampoline = function(x, y){
 GameObject.prototype.impart(Trampoline);
 
 Trampoline.prototype.Update = function(){
-	if (this.x > 26 || this.x < 2){
+	if (this.x > (31 - this.w) || this.x < 2){
 		this.moveSpeed = this.moveSpeed * -1;
 	}
 
