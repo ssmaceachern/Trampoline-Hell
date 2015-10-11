@@ -2,6 +2,13 @@
  * @author Sean
  */
 
+/**
+ * Camera object for following the player.
+ * @param {int} x
+ * @param {int} y
+ * @param {int} width
+ * @param {int} height
+ */
 var Camera = function(x, y, width, height){
 	GameObject.call(this, x, y, width, height, "Camera");
 	
@@ -14,19 +21,32 @@ var Camera = function(x, y, width, height){
 
 GameObject.prototype.impart(Camera);
 
+/**
+ *	Set the player as our target after the level loads. 
+ * @param {Object} game
+ */
 Camera.prototype.LoadCamera = function(game){
 	this.objects 	= game.objects;
 	this.target 	= game.GetObjectByName("Player");
 };
 
-Camera.prototype.DistanceFromOrigin = function(object){
-	var distance = Math.abs(this.target.y - object.originY) - this.target.ySpeed;
-	PS.debug("Player distance from origin: " + distance + "\n");
-	return distance;
+Camera.prototype.GetX = function(){
+	return this.target.x - (this.w/2);
+};
+
+Camera.prototype.GetY = function(){
+	return this.target.y - (this.h/2);
 };
 
 Camera.prototype.TranslateObject = function(object){
-	object.y = this.DistanceFromOrigin(object);// + this.target.ySpeed;
+	screenX = object.x;// + this.GetX();
+	screenY = object.y + this.GetY();
+	
+	PS.debug(object.name + ": " + screenX + ", " + screenY + "\n");
+	
+	if(object.sprite != null || object.sprite != undefined ){
+		PS.spriteMove(object.sprite, screenX, screenY);
+	}
 };
 
 Camera.prototype.Draw = function(offsetX, offsetY){
@@ -34,18 +54,10 @@ Camera.prototype.Draw = function(offsetX, offsetY){
 };
 
 Camera.prototype.Update = function(){
-	this.y = this.target.y;
 
-	if(this.target.y < 32){
-		for(i = 0; i < this.objects.length; i++){
-			
-			//this.TranslateObject(this.objects[i]);
-			
-			if(this.objects[i].name != this.target.name){
-				this.TranslateObject(this.objects[i]);
-			}else{
-				this.target.y = this.target.y + this.target.ySpeed;
-			}
+	for(i = 0; i < this.objects.length; i++){
+		if(this.objects[i].name != this.target.name){
+			this.TranslateObject(this.objects[i]);
 		}
 	}
 };

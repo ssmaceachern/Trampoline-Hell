@@ -50,7 +50,7 @@ Indicator.prototype.Update = function(){
 		this.target = Game.GetObjectByName("Trampoline");
 	}
 	
-	this.x = this.target.x + 1;
+	this.x = this.target.x + (this.target.w/2);
 	this.y = Math.floor(this.player.y) + 13;	
 	
 	//PS.debug("Y Position:" + this.y + "\n");

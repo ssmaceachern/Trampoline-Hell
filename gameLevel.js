@@ -14,10 +14,9 @@ var Level = function(game)
 		
 		this.objects = game.objects;
 		
-		this.name = "Level";
-		this.spawner = new BulletSpawner(1, 1, this);
+		//this.spawner = new BulletSpawner(1, 1, this);
 		
-		//this.camera = new Camera(0, 0, 32, 32);
+		this.camera = new Camera(0, 0, 32, 32);
 		
 		this.active = true;
 		
@@ -56,7 +55,7 @@ Level.prototype.PlayGame = function(){
 	PS.spriteShow(this.sprite, false);
 	
 	//this.Game.addObject(this.spawner);
-	//this.Game.addObject(this.camera);
+	this.Game.addObject(this.camera);
 	
 	this.Game.addObject(new Player(16, 12));
 	this.Game.addObject(new Trampoline(15, 28));
@@ -66,7 +65,7 @@ Level.prototype.PlayGame = function(){
 	this.Game.addObject(new Wall(31,-1968,1,2000));
 	this.Game.addObject(new Indicator());
 	
-	//this.camera.LoadCamera(this.Game);
+	this.camera.LoadCamera(this.Game);
 	
 };
 
