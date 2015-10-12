@@ -71,6 +71,15 @@ PS.touch = function( x, y, data, options ) {
 
 	// Add code here for mouse clicks/touches over a bead
 	
+    var playerx = Game.GetObjectByName("Player").x;
+    var playery = Game.GetObjectByName("Player").y;
+    
+    var dy = (y - playery) / 30;
+    var dx = (x - playerx) / 30;
+    
+    var bull = new playerBullet(playerx, playery, dx, dy, 1, 1);
+    Game.addObject(bull);
+    
 	//PS.color(x, y, PS.COLOR_RED);
 };
 
