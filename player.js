@@ -13,7 +13,7 @@ var Player = function(x, y){
 	
 	this.moveSpeed = 1/30;
 	this.ySpeed = 1/30;
-	this.yMaxSpeed = 5;
+	this.yMaxSpeed = 2;
 	this.yAcceleration = 1/120;
 	
 	/*
@@ -49,22 +49,22 @@ Player.prototype.Draw = function(offsetX, offsetY){
 
 Player.prototype.Update = function(){
 	
-	if((Game.getKey(PS.KEY_ARROW_LEFT) === 1))
+	if((Game.getKey(PS.KEY_ARROW_LEFT) === 1) || Game.getKey(97) === 1)
 	{
 		this.x -= 0.5;
 	}
 	
-	if((Game.getKey(PS.KEY_ARROW_RIGHT) === 1))
+	if(Game.getKey(PS.KEY_ARROW_RIGHT) === 1 || Game.getKey(100) === 1)
 	{
 		this.x += 0.5;				
 	}
 	
-	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1) && this.y < 26)
+	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1 || Game.getKey(115) === 1) && this.y < 26)
 	{
 		this.y += 0.5;				
 	}
 	
-	if((Game.getKey(PS.KEY_ARROW_UP) === 1) && this.y > 1)
+	if((Game.getKey(PS.KEY_ARROW_UP) === 1 || Game.getKey(119) === 1) && this.y > 1)
 	{
 		this.y -= 0.5;				
 	}
@@ -85,6 +85,7 @@ Player.prototype.Update = function(){
 	}
 	
 	//PS.debug(this.x +", " + this.y + "\n");
+	//PS.debug(this.ySpeed + "\n");
 };
 
 Player.prototype.Collision = function(s1, p1, s2, p2, type){

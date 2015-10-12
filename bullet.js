@@ -5,13 +5,14 @@
 var Bullet = function(x, y, width, height){
 	GameObject.call(this, x, y, width, height, "Bullet");
 	
-	this.moveSpeed = 1/30;
+	this.moveSpeed = 0.1;
 	
 	/*
 	 * Load the sprite
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor (this.sprite, PS.COLOR_BLUE);
+	
 	PS.spriteMove(this.sprite, this.x, this.y);
 	
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
@@ -24,7 +25,8 @@ Bullet.prototype.Draw = function(offsetX, offsetY){
 	this.y = this.y + offsetY;
 	
 	if(this.sprite != null){
-		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
+		//PS.debug(this.y + "\n");
+		PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
 		PS.spriteSolidColor ( this.sprite, PS.COLOR_BLACK );
@@ -33,9 +35,7 @@ Bullet.prototype.Draw = function(offsetX, offsetY){
 };
 
 Bullet.prototype.Update = function(){
-	
 	this.y += this.moveSpeed;
-	
 };
 
 Bullet.prototype.Collision = function(s1, p1, s2, p2, type){
