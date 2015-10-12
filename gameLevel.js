@@ -58,8 +58,8 @@ Level.prototype.PlayGame = function(){
 	//this.Game.addObject(this.spawner);
 	this.Game.addObject(this.camera);
 	
-	this.Game.addObject(new Trampoline(15, 28));
-	this.Game.addObject(new Player(16, 12));
+	this.Game.addObject(new Trampoline(11, 26));
+	this.Game.addObject(new Player(16, 10));
 	
 	this.Game.addObject(new Wall(0,31,32,1));
 	this.Game.addObject(new Wall(0,-1968,1,LevelHeight));

@@ -95,11 +95,11 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	}
 	
 	if(CollidingObject.name == "Trampoline"){
-		this.ySpeed = -1.1 * this.ySpeed;
 		this.y = this.y - (CollidingObject.h / 2);
+		this.ySpeed = -1.1 * this.ySpeed;
 	}
 	
-	if(CollidingObject.name == "Bullet" || CollidingObject.name == "Wall"){
+	if((CollidingObject.name == "Bullet" || CollidingObject.name == "Wall") && type == PS.SPRITE_OVERLAP){
 		Level.EndGame();
 	}
 	
