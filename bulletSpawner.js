@@ -29,16 +29,16 @@ BulletSpawner.prototype.SpawnBulletRandom = function(level){
 
 BulletSpawner.prototype.SpawnBulletHorizontal = function(level){
 	var randX = (Math.random() * 25) + 1;
-	level.Game.addObject(new Bullet(randX, -500, 1, 2));
-	level.Game.addObject(new Bullet(randX + 2, -500, 1, 2));
-	level.Game.addObject(new Bullet(randX + 4, -500, 1, 2));
+	level.Game.addObject(new Bullet(randX, -100, 1, 2));
+	level.Game.addObject(new Bullet(randX + 2, -100, 1, 2));
+	level.Game.addObject(new Bullet(randX + 4, -100, 1, 2));
 };
 
 BulletSpawner.prototype.SpawnBulletVertical = function(level){
 	var randX = Math.random() * 32;
-	level.Game.addObject(new Bullet(randX, -500 - 5, 1, 2));
-	level.Game.addObject(new Bullet(randX, -500 - 8, 1, 2));
-	level.Game.addObject(new Bullet(randX, -500 - 11, 1, 2));
+	level.Game.addObject(new Bullet(randX, -100 - 5, 1, 2));
+	level.Game.addObject(new Bullet(randX, -100 - 8, 1, 2));
+	level.Game.addObject(new Bullet(randX, -100 - 11, 1, 2));
 };
 
 BulletSpawner.prototype.ChoosePattern = function(level){

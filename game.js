@@ -70,16 +70,16 @@ PS.touch = function( x, y, data, options ) {
 	// PS.debug( "PS.touch() @ " + x + ", " + y + "\n" );
 
 	// Add code here for mouse clicks/touches over a bead
-	
-    var playerx = Game.GetObjectByName("Player").x;
-    var playery = Game.GetObjectByName("Player").y;
+	if(Game.GetObjectByName("Player") != null){
+        var playerx = Game.GetObjectByName("Player").x;
+        var playery = Game.GetObjectByName("Player").y;
     
-    var dy = (y - playery) / 30;
-    var dx = (x - playerx) / 30;
+        var dy = (y - playery) / 30;
+        var dx = (x - playerx) / 30;
     
-    var bull = new playerBullet(playerx, playery, dx, dy, 1, 1);
-    Game.addObject(bull);
-    
+        var bull = new playerBullet(playerx, playery, dx, dy, 1, 1);
+        Game.addObject(bull);
+    }
 	//PS.color(x, y, PS.COLOR_RED);
 };
 
