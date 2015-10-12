@@ -24,8 +24,8 @@ Trampoline.prototype.Update = function(){
 
 	this.x += this.moveSpeed;
 	
-	PlayerHeight = this.y - 12;
-	
+	PlayerHeight = Math.floor(this.y - 12);
+	PS.debug(PlayerHeight + "\n");
 	//PS.debug(this.name + ": " + this.x +", " + this.y + "\n");
 };
 

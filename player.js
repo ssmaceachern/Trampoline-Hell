@@ -9,12 +9,12 @@ var Player = function(x, y){
 	
 	this.color = PS.COLOR_BLACK;
 	
+	PlayerHeight = 0;
+	
 	this.moveSpeed = 1/30;
 	this.ySpeed = 1/30;
 	this.yMaxSpeed = 1;
 	this.yAcceleration = 1/120;
-	
-	PlayerHeight = 0;
 	
 	/*
 	 * Load the player sprite
@@ -22,6 +22,10 @@ var Player = function(x, y){
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, this.color );
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
+	
+	this.trampolineIndicator = new Indicator(this);
+	
+	Game.addObject(this.trampolineIndicator);
 };
 
 GameObject.prototype.impart(Player);

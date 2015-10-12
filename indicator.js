@@ -2,19 +2,11 @@
  * @author Sean
  */
 
-/**
- * @author Sean
- */
-
-var Indicator = function(){
-	this.player = Game.GetObjectByName("Player");
-	this.target = Game.GetObjectByName("Trampoline");
+var Indicator = function(player){
+	GameObject.call(this, player.x, player.y, 3, 2, "Indicator");
 	
-	this.x = this.target.x;
-	this.y = this.target.y;
-	this.w = 3;
-	this.h = 2;
-	this.name = "Indicator";
+	this.player = player;
+	this.trampoline = Game.GetObjectByName("Trampoline");
 	
 	/*
 	 * Load the player sprite
@@ -35,7 +27,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 		this.imageID = PS.imageLoad("images/indicator.png", this.spriteLoader.bind(this), 4);
 	}
 	
-	if(this.player.y < 16)
+	if(PlayerHeight > 16)
 	{
 		PS.spriteShow ( this.sprite, true );
 	}else if(this.sprite != null){
@@ -45,13 +37,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 
 Indicator.prototype.Update = function(){
 	
-	if(this.player == undefined || this.player == null){
-		this.player = Game.GetObjectByName("Player");
-		this.target = Game.GetObjectByName("Trampoline");
-	}
+	this.x = this.trampoline.x + (this.trampoline.w/2);
+	this.y = Math.floor(this.player.y) + 8;	
 	
-	this.x = this.target.x + (this.target.w/2);
-	this.y = Math.floor(this.player.y) + 13;	
-	
-	//PS.debug("Y Position:" + this.y + "\n");
 };
