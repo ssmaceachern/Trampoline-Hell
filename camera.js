@@ -16,7 +16,6 @@ var Camera = function(x, y, width, height){
 	
 	this.objects = [];
 	this.target = null;
-	
 };
 
 GameObject.prototype.impart(Camera);
@@ -31,21 +30,23 @@ Camera.prototype.LoadCamera = function(game){
 };
 
 Camera.prototype.GetX = function(){
-	return this.target.x - (this.w/2);
+	return this.target.x - 16;
 };
 
 Camera.prototype.GetY = function(){
-	return this.target.y - (this.h/2);
+	//PS.debug("GetY: " + this.target.y + "\n");
+	return this.target.y + 16;
 };
 
 Camera.prototype.TranslateObject = function(object){
-	screenX = object.x;// + this.GetX();
-	screenY = object.y + this.GetY();
-	
-	PS.debug(object.name + ": " + screenX + ", " + screenY + "\n");
-	
+	// screenX = object.x;
+	// screenY = object.y + this.GetY();
+		
 	if(object.sprite != null || object.sprite != undefined ){
-		PS.spriteMove(object.sprite, screenX, screenY);
+		object.x = object.x;
+		object.y = object.y - this.target.ySpeed;
+		
+		//PS.debug(object.name + ": " + object.y + "\n");
 	}
 };
 
@@ -56,8 +57,10 @@ Camera.prototype.Draw = function(offsetX, offsetY){
 Camera.prototype.Update = function(){
 
 	for(i = 0; i < this.objects.length; i++){
-		if(this.objects[i].name != this.target.name){
+		if(this.objects[i].name != "Level"){
 			this.TranslateObject(this.objects[i]);
 		}
 	}
+	
+	
 };

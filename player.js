@@ -2,6 +2,8 @@
  * @author Sean
  */
 
+var PlayerHeight;
+
 var Player = function(x, y){
 	GameObject.call(this, x, y, 2, 4, "Player");
 	
@@ -11,7 +13,9 @@ var Player = function(x, y){
 	this.ySpeed = 1/30;
 	this.yMaxSpeed = 1;
 	this.yAcceleration = 1/120;
-			
+	
+	PlayerHeight = 0;
+	
 	/*
 	 * Load the player sprite
 	 */
@@ -80,7 +84,7 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	}
 	
 	if(CollidingObject.name == "Trampoline"){
-		this.ySpeed = -this.ySpeed;
+		this.ySpeed = -1.2 * this.ySpeed;
 	}
 	
 	if(CollidingObject.name == "Bullet" || CollidingObject.name == "Wall"){
