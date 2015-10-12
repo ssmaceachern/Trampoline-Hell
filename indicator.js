@@ -27,7 +27,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 		this.imageID = PS.imageLoad("images/indicator.png", this.spriteLoader.bind(this), 4);
 	}
 	
-	if(PlayerHeight > 16)
+	if(PlayerHeight > 22)
 	{
 		PS.spriteShow ( this.sprite, true );
 	}else if(this.sprite != null){

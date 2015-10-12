@@ -6,6 +6,8 @@
  *	Class for handling game states 
  * @param {Object} game
  */
+var LevelHeight;
+
 var Level = function(game)
 {
 	if(game != null){
@@ -27,6 +29,8 @@ var Level = function(game)
 			End 	: this.EndGame
 		};
 		
+		LevelHeight = 2000;
+		
 		this.CurrentMode = null;
 		PS.imageLoad("images/title.png", this.spriteLoader.bind(this), 4);
 	}
@@ -44,13 +48,10 @@ Level.prototype.StartGame = function(){
 	Game.run();
 };
 
-Level.prototype.SpawnBullet = function(){
-	var randX = Math.random() * 32;
-	this.Game.addObject(new Bullet(randX, -5, 1, 2));
-};
-
 Level.prototype.PlayGame = function(){
 	this.CurrentMode = this.MODES.Play;
+	
+	PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/", fileTypes : ["mp3"]});
 	
 	PS.spriteShow(this.sprite, false);
 	
@@ -61,8 +62,8 @@ Level.prototype.PlayGame = function(){
 	this.Game.addObject(new Player(16, 12));
 	
 	this.Game.addObject(new Wall(0,31,32,1));
-	this.Game.addObject(new Wall(0,-1968,1,2000));
-	this.Game.addObject(new Wall(31,-1968,1,2000));
+	this.Game.addObject(new Wall(0,-1968,1,LevelHeight));
+	this.Game.addObject(new Wall(31,-1968,1,LevelHeight));
 	
 	this.camera.LoadCamera(this.Game);
 	
@@ -109,13 +110,6 @@ Level.prototype.Update = function(){
 			break;
 		case this.MODES.Play:
 			
-			// for(i = 0; i < 120; i++){
-				// if(i == 120){
-					// PS.debug("Bullet Spawn\n");
-					// this.SpawnBullet();
-					// i = 0;
-				// }
-			// }
 		
 			break;
 		case this.MODES.Pause:
