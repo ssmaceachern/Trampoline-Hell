@@ -47,12 +47,13 @@ var Level;
 PS.init = function( system, options ) {
 	"use strict";
 	
-	Game = new Window(32, 32, PS.COLOR_ORANGE);
+	Game = new Window(32, 32, PS.COLOR_BLACK);
 	Level = new Level(Game);
 	
 	Level.StartGame();
 	
 	PS.statusText("Welcome to Trampoline Hell");
+	PS.statusColor(PS.COLOR_WHITE);
 };
 
 // PS.touch ( x, y, data, options )

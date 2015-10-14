@@ -16,7 +16,7 @@ var Level = function(game)
 		
 		this.objects = game.objects;
 		
-		this.spawner = new BulletSpawner(1, 1, this);
+		//this.spawner = new BulletSpawner(1, 1, this);
 		
 		this.active = true;
 		
@@ -57,17 +57,22 @@ Level.prototype.PlayGame = function(){
 	
 	var player = new Player(16, 10);
 	
-	this.Game.addObject(this.spawner);
+	//this.Game.addObject(this.spawner);
 	
 	this.Game.addObject(new Wall(0,31,32,1));
 	this.Game.addObject(new Wall(0,-1968,1,LevelHeight));
 	this.Game.addObject(new Wall(31,-1968,1,LevelHeight));
 	
 	this.Game.addObject(new Trampoline(11, 24));
+	this.Game.addObject(new Trampoline(11, -200));
+	this.Game.addObject(new Trampoline(11, -600));
+	this.Game.addObject(new Trampoline(11, -1000));
+	this.Game.addObject(new Trampoline(11, -1500));
+	
 	this.Game.addObject(player);
 	
 	this.Game.camera.SetTarget(player);
-	this.spawner.LoadSpawner(this.Game);
+	//this.spawner.LoadSpawner(this.Game);
 };
 
 Level.prototype.PauseGame = function(){

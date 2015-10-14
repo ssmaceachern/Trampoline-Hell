@@ -25,7 +25,7 @@ Wings.prototype.Draw = function(offsetX, offsetY){
 	this.y = this.player.y + offsetY;
 	
 	if(this.sprite != null){
-		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
+		//var loc = PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.imageID = PS.imageLoad("images/wings.png", this.spriteLoader.bind(this), 4);
 	}

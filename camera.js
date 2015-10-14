@@ -16,7 +16,9 @@ var Camera = function(x, y, width, height){
 	this.height = height;
 		
 	this.objects = [];
+	this.trailLength = [];
 	this.target = null;
+	
 };
 
 GameObject.prototype.impart(Camera);
@@ -59,6 +61,10 @@ Camera.prototype.Update = function(){
 	//PS.debug(this.target.name + "\n");
 	
 	if(this.target){
+		
+			new Trail(this.target, this.target.x, this.target.y, 20);
+		
+		
 		//this.x = this.GetCenterX();
 		//this.y = this.GetCenterY();
 		//PS.debug("Screen center: " + this.x + ", " + this.y + "\n");

@@ -7,7 +7,7 @@ var PlayerHeight;
 var Player = function(x, y){
 	GameObject.call(this, x, y, 2, 4, "Player");
 	
-	this.color = PS.COLOR_BLACK;
+	this.color = PS.COLOR_WHITE;
 	
 	PlayerHeight = 0;
 	
@@ -23,11 +23,8 @@ var Player = function(x, y){
 	PS.spriteSolidColor ( this.sprite, this.color );
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	
-	//this.trampolineIndicator = new Indicator(this);
-	//this.wings = new Wings(this);
-	
-	//Game.addObject(this.trampolineIndicator);
-	//Game.addObject(this.wings);
+	// this.wings = new Wings(this);
+	// Game.addObject(this.wings);
 };
 
 GameObject.prototype.impart(Player);
@@ -38,6 +35,13 @@ Player.prototype.Draw = function(offsetX, offsetY){
 	this.y = this.y + offsetY;
 	
 	if(this.sprite != null){
+		PS.spriteSolidColor ( this.sprite, PS.makeRGB(255 - (PlayerHeight / LevelHeight),
+														255 - (PlayerHeight / LevelHeight),
+														255 - (PlayerHeight / LevelHeight)) );
+														
+		PS.gridColor(PS.makeRGB(255 * (PlayerHeight * 2 / LevelHeight),
+								255 * (PlayerHeight * 2 / LevelHeight),
+								255 * (PlayerHeight * 2 / LevelHeight)));
 		//PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
@@ -107,8 +111,8 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	
 	if(CollidingObject.name == "Trampoline")
 	{
-		//this.y = this.y - (CollidingObject.h / 2);
-		this.ySpeed = -1.1 * this.ySpeed;
+		this.y = this.y - 1;
+		this.ySpeed = -1.2 * this.ySpeed;
 	}
 	
 	if((CollidingObject.name == "Bullet" || CollidingObject.name == "Wall") && type == PS.SPRITE_OVERLAP)

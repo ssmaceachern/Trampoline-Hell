@@ -6,7 +6,6 @@ var Indicator = function(player){
 	GameObject.call(this, player.x, player.y, 3, 2, "Indicator");
 	
 	this.player = player;
-	this.trampoline = Game.GetObjectByName("Trampoline");
 	
 	/*
 	 * Load the player sprite
