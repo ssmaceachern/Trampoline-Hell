@@ -67,7 +67,10 @@ Player.prototype.Update = function(){
 	
 	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1 || Game.getKey(115) === 1))// && this.y < 26)
 	{
-		this.y += 0.5;				
+		if(this.ySpeed < 0){
+			this.ySpeed += 0.1;	
+		}
+					
 	}
 	
 	if((Game.getKey(PS.KEY_ARROW_UP) === 1 || Game.getKey(119) === 1))// && this.y > 1)
@@ -85,7 +88,7 @@ Player.prototype.Update = function(){
 	this.y += this.ySpeed;
 		
 	if(this.ySpeed < this.yMaxSpeed){
-		//this.ySpeed += this.yAcceleration;
+		this.ySpeed += this.yAcceleration;
 	}else{
 		this.ySpeed = this.yMaxSpeed;
 	}
