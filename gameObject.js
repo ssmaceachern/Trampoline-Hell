@@ -63,12 +63,6 @@ GameObject.prototype.contains = function(x, y){
 	return (x >= this.x) && (y >= this.y) && (x < this.x + this.w) && (y < this.y + this.h);
 };
 
-GameObject.prototype.getObjectBySprite = function(spr){
-	if(spr == this.sprite){
-		return this;
-	}
-};
-
 /**
  * Tick function for updating an object's position and rendering
  */

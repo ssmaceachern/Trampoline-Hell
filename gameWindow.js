@@ -17,6 +17,11 @@ var Window = function(width, height, color)
 	this.color = color;
 	
 	/*
+	 * Init Camera
+	 */
+	this.camera = new Camera(0, 0, 32, 32);
+	
+	/*
 	 * Color grid
 	 */
 	PS.gridSize(this.w, this.h);
@@ -57,6 +62,10 @@ Window.prototype.removeObject = function(object){
 	object.remove = true;
 };
 
+Window.prototype.GetCamera = function(){
+	return this.camera;
+};
+
 Window.prototype.removeAllObjects = function(){
 	for (var i = 0; i < this.objects.length; ++i) {
 		this.objects[i].remove = true;
@@ -91,7 +100,8 @@ Window.prototype.Erase = function(object){
 			object.active = false;
 			PS.spriteDelete(object.sprite);
 		}
-		else{
+		else if(object.sprite){
+			//PS.spriteShow(object.sprite, false);
 			//PS.debug("ERASE: " + object.sprite + " " + object.removes + "\n");
 		}
 };
@@ -100,6 +110,7 @@ Window.prototype.Update = function(){
 	for (var i = 0; i < this.objects.length; ++i) {
 		if(this.objects[i].active);
 			this.objects[i]._update();
+			this.camera.TranslateObject(this.objects[i]);
 	}
 	// Remove inactive children
 	for (var i = 0; i < this.objects.length; ++i) {
@@ -118,7 +129,16 @@ Window.prototype.Draw = function(offsetX, offsetY) {
 	for (var i = 0; i < this.objects.length; ++i) {
 		if(this.objects[i].active)
 		{
-			this.objects[i]._draw(offsetX, offsetY);
+			if(this.camera.contains(this.objects[i]) && this.objects[i].sprite)
+			{
+				this.objects[i]._draw(offsetX, offsetY);
+				//PS.spriteShow(this.objects[i].sprite, true);
+			}
+			else
+			{
+				//this.Erase(this.objects[i]);
+			}
+			
 			//PS.debug("DRAW: " + this.objects[i].name + " " + this.objects[i].sprite + "\n");
 		}
 			

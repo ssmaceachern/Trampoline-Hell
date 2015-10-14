@@ -12,8 +12,9 @@
 var Camera = function(x, y, width, height){
 	GameObject.call(this, x, y, width, height, "Camera");
 	
-	this.originY = this.h;
-	
+	this.width = width;
+	this.height = height;
+		
 	this.objects = [];
 	this.target = null;
 };
@@ -24,30 +25,30 @@ GameObject.prototype.impart(Camera);
  *	Set the player as our target after the level loads. 
  * @param {Object} game
  */
-Camera.prototype.LoadCamera = function(game){
-	this.objects 	= game.objects;
-	this.target 	= game.GetObjectByName("Player");
+Camera.prototype.SetTarget = function(object){
+	this.target = object;
 };
 
-Camera.prototype.GetX = function(){
-	return this.target.x - 16;
+Camera.prototype.contains = function(object){
+	return (object.x >= this.x && object.x <= this.x + this.width) &&
+				(object.y >= this.y && object.y <= this.y + this.height);
 };
 
-Camera.prototype.GetY = function(){
-	//PS.debug("GetY: " + this.target.y + "\n");
-	return this.target.y + 16;
+Camera.prototype.GetCenterX = function(){
+	return this.target.x - (this.width / 2);
+};
+
+Camera.prototype.GetCenterY = function(){
+	return this.target.y - (this.height / 2) + (this.target.h / 2);
 };
 
 Camera.prototype.TranslateObject = function(object){
-	// screenX = object.x;
-	// screenY = object.y + this.GetY();
-		
-	if(object.sprite != null || object.sprite != undefined ){
-		object.x = object.x;
-		object.y = object.y - this.target.ySpeed;
-		
-		//PS.debug(object.name + ": " + object.y + "\n");
+	if(this.target && object.sprite){
+		screenX = object.x; //+ this.GetCenterX();
+		screenY = Math.round(object.y - this.GetCenterY());
+		PS.spriteMove(object.sprite, screenX, screenY);
 	}
+	
 };
 
 Camera.prototype.Draw = function(offsetX, offsetY){
@@ -55,12 +56,11 @@ Camera.prototype.Draw = function(offsetX, offsetY){
 };
 
 Camera.prototype.Update = function(){
-
-	for(i = 0; i < this.objects.length; i++){
-		if(this.objects[i].name != "Level"){
-			this.TranslateObject(this.objects[i]);
-		}
+	//PS.debug(this.target.name + "\n");
+	
+	if(this.target){
+		//this.x = this.GetCenterX();
+		//this.y = this.GetCenterY();
+		//PS.debug("Screen center: " + this.x + ", " + this.y + "\n");
 	}
-	
-	
 };

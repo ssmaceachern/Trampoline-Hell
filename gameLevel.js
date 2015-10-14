@@ -18,8 +18,6 @@ var Level = function(game)
 		
 		this.spawner = new BulletSpawner(1, 1, this);
 		
-		this.camera = new Camera(0, 0, 32, 32);
-		
 		this.active = true;
 		
 		this.MODES = {
@@ -51,21 +49,24 @@ Level.prototype.StartGame = function(){
 Level.prototype.PlayGame = function(){
 	this.CurrentMode = this.MODES.Play;
 	
-	PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/", fileTypes : ["mp3"]});
+	this.Game.addObject(this.Game.GetCamera());
+	
+	//PS.audioLoad("bg-music", {autoplay : true, loop : true, path : "audio/", fileTypes : ["mp3"]});
 	
 	PS.spriteShow(this.sprite, false);
 	
+	var player = new Player(16, 10);
+	
 	this.Game.addObject(this.spawner);
-	this.Game.addObject(this.camera);
 	
 	this.Game.addObject(new Wall(0,31,32,1));
 	this.Game.addObject(new Wall(0,-1968,1,LevelHeight));
 	this.Game.addObject(new Wall(31,-1968,1,LevelHeight));
 	
 	this.Game.addObject(new Trampoline(11, 24));
-	this.Game.addObject(new Player(16, 10));
+	this.Game.addObject(player);
 	
-	this.camera.LoadCamera(this.Game);
+	this.Game.camera.SetTarget(player);
 	this.spawner.LoadSpawner(this.Game);
 };
 

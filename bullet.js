@@ -26,7 +26,7 @@ Bullet.prototype.Draw = function(offsetX, offsetY){
 	
 	if(this.sprite != null){
 		//PS.debug(this.y + "\n");
-		PS.spriteMove(this.sprite, this.x, this.y);	
+		//PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
 		PS.spriteSolidColor ( this.sprite, PS.COLOR_BLACK );

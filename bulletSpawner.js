@@ -17,8 +17,8 @@ var BulletSpawner = function(x, y, level){
 GameObject.prototype.impart(BulletSpawner);
 
 BulletSpawner.prototype.LoadSpawner = function(game){
-	this.player = game.GetObjectByName("Player");
-	this.spawnY = this.player.y - 32;
+	//this.player = game.GetObjectByName("Player");
+	//this.spawnY = this.player.y - 32;
 	//PS.debug("SpawnY: " + this.spawnY + "\n");
 };
 
@@ -61,7 +61,7 @@ BulletSpawner.prototype.Draw = function(offsetX, offsetY){
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
 	
-	this.spawnY = this.player.y - 32;
+	//this.spawnY = this.player.y - 32;
 };
 
 BulletSpawner.prototype.Update = function(){

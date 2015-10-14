@@ -24,13 +24,8 @@ Trampoline.prototype.Update = function(){
 
 	this.x += this.moveSpeed;
 	
-	PlayerHeight = Math.floor(this.y - 12);
-	
-	if(PlayerHeight < 0){
-		PlayerHeight = 0;
-	}
-	
-	PS.statusText("Current Height: " + PlayerHeight + "/" + LevelHeight);
+	//PS.debug(this.name + ": " + this.x +", " + this.y + "\n");
+
 	//PS.debug(this.name + ": " + this.x +", " + this.y + "\n");
 };
 
@@ -39,7 +34,7 @@ Trampoline.prototype.Draw = function(offsetX, offsetY){
 	this.y = this.y + offsetY;
 	
 	if(this.sprite != null){
-		var loc = PS.spriteMove(this.sprite, this.x, this.y);	
+		//PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
 		PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
