@@ -34,14 +34,16 @@ Player.prototype.Draw = function(offsetX, offsetY){
 	this.x = this.x + offsetX;
 	this.y = this.y + offsetY;
 	
+	PS.gridColor(PS.makeRGB(255 * (PlayerHeight * 2 / LevelHeight),
+								255 * (PlayerHeight * 2 / LevelHeight),
+								255 * (PlayerHeight * 2 / LevelHeight)));
+	
 	if(this.sprite != null){
 		PS.spriteSolidColor ( this.sprite, PS.makeRGB(255 - (PlayerHeight / LevelHeight),
 														255 - (PlayerHeight / LevelHeight),
 														255 - (PlayerHeight / LevelHeight)) );
 														
-		PS.gridColor(PS.makeRGB(255 * (PlayerHeight * 2 / LevelHeight),
-								255 * (PlayerHeight * 2 / LevelHeight),
-								255 * (PlayerHeight * 2 / LevelHeight)));
+		
 		//PS.spriteMove(this.sprite, this.x, this.y);	
 	}else{
 		this.sprite = PS.spriteSolid(this.w, this.h);
@@ -63,12 +65,12 @@ Player.prototype.Update = function(){
 		this.x += 0.5;				
 	}
 	
-	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1 || Game.getKey(115) === 1) && this.y < 26)
+	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1 || Game.getKey(115) === 1))// && this.y < 26)
 	{
 		this.y += 0.5;				
 	}
 	
-	if((Game.getKey(PS.KEY_ARROW_UP) === 1 || Game.getKey(119) === 1) && this.y > 1)
+	if((Game.getKey(PS.KEY_ARROW_UP) === 1 || Game.getKey(119) === 1))// && this.y > 1)
 	{
 		this.y -= 0.5;				
 	}
@@ -83,7 +85,7 @@ Player.prototype.Update = function(){
 	this.y += this.ySpeed;
 		
 	if(this.ySpeed < this.yMaxSpeed){
-		this.ySpeed += this.yAcceleration;
+		//this.ySpeed += this.yAcceleration;
 	}else{
 		this.ySpeed = this.yMaxSpeed;
 	}
@@ -93,7 +95,7 @@ Player.prototype.Update = function(){
 	if(PlayerHeight < 0){
 		PlayerHeight = 0;
 	} else if(PlayerHeight > 2000){
-		Level.EndGame();
+		Level.WinGame();
 	}
 	
 	PS.statusText("Current Height: " + PlayerHeight + "/" + LevelHeight);

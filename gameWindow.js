@@ -74,7 +74,7 @@ Window.prototype.removeAllObjects = function(){
 
 Window.prototype.removeAllObjectsFromLevel = function(){
 	for (var i = 0; i < this.objects.length; ++i) {
-		if(this.objects[i].name != "Level")
+		if(this.objects[i].name != "Level" && this.objects[i].name != "Camera")
 		{
 			this.objects[i].remove = true;	
 		}

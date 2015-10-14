@@ -70,7 +70,6 @@ Level.prototype.PlayGame = function(){
 	this.Game.addObject(new Trampoline(11, -1500));
 	
 	this.Game.addObject(player);
-	
 	this.Game.camera.SetTarget(player);
 	//this.spawner.LoadSpawner(this.Game);
 };
@@ -86,6 +85,18 @@ Level.prototype.EndGame = function(){
 	this.CurrentMode = this.MODES.End;
 	
 	PS.statusText("Press Enter to Restart");
+	
+	this.Game.removeAllObjectsFromLevel();
+	
+};
+
+Level.prototype.WinGame = function(){
+	this.sprite = null;
+	PS.imageLoad("images/win.png", this.spriteLoader.bind(this), 4);
+	
+	this.CurrentMode = this.MODES.End;
+	
+	PS.statusText("Press Enter to Play Again");
 	
 	this.Game.removeAllObjectsFromLevel();
 	
@@ -122,9 +133,9 @@ Level.prototype.Update = function(){
 			break;
 		case this.MODES.End:
 			if(Game.getKey(PS.KEY_ENTER) === 1){
-				location.reload();
-				//this.CurrentMode = this.MODES.Play;
-				//this.CurrentMode();
+				//location.reload();
+				this.CurrentMode = this.MODES.Play;
+				this.CurrentMode();
 			}
 			break;
 		default:
