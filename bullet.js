@@ -45,7 +45,7 @@ Bullet.prototype.Collision = function(s1, p1, s2, p2, type){
 		return;
 	}
 	
-	if(CollidingObject.name == "Wall" || CollidingObject.name == "Trampoline"){
+	if(CollidingObject.name == "Wall" || CollidingObject.name == "Trampoline" || CollidingObject.name == "Bullet"){
 		this.remove = true;
 	}
 	

@@ -65,14 +65,14 @@ Level.prototype.PlayGame = function(){
 	
 	this.Game.addObject(new Trampoline(11, 24));
 	
-	for (var i = 0; i < 15; i++) {
-	    this.Game.addObject(new Trampoline(11, -150 * i));
+	for (var i = 0; i < 1900; i += 75) {
+	    this.Game.addObject(new Trampoline(11, i * -1));
 	}
 	
-	for (var i = 0; i < 10; i++) {
-		
-	    this.Game.addObject(new BulletSpawner(1, ((Math.random() * 1800) + 50) * -1, this, Math.round(Math.random() * 2)));
-	    this.Game.addObject(new BulletSpawner(29, ((Math.random() * 1800) + 50) * -1, this, Math.round(Math.random() * 2)));
+	for (var i = 0; i < 1900; i += 100) {
+		//randY = ((Math.random() * 1850) + 150);
+	    this.Game.addObject(new BulletSpawner(1, (i * -1) - 25, this, Math.round(Math.random() * 2)));
+	    this.Game.addObject(new BulletSpawner(29, (i * -1) - 25, this, Math.round(Math.random() * 2)));
 	}
 
 	this.Game.addObject(player);

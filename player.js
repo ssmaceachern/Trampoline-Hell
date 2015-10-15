@@ -11,7 +11,7 @@ var Player = function(x, y){
 	
 	this.moveSpeed = 1/30;
 	this.ySpeed = 1/30;
-	this.yMaxSpeed = 1.5;
+	this.yMaxSpeed = 1;
 	this.yAcceleration = 1/120;
 	
 	/*
@@ -130,7 +130,7 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	if(CollidingObject.name == "Trampoline")
 	{
 		this.y = this.y - 1;
-		this.ySpeed = -1.2 * this.ySpeed;
+		this.ySpeed = -1.1 * this.ySpeed;
 		this.indicator.SwitchTarget(CollidingObject);
 	}
 	
