@@ -89,7 +89,7 @@ Level.prototype.EndGame = function(){
 	
 	this.CurrentMode = this.MODES.End;
 	
-	PS.statusText("Press Enter to Restart");
+	PS.statusText("PRESS ENTER TO RESTART");
 	
 	this.Game.removeAllObjectsFromLevel();
 	
@@ -101,7 +101,7 @@ Level.prototype.WinGame = function(){
 	
 	this.CurrentMode = this.MODES.End;
 	
-	PS.statusText("Press Enter to Play Again");
+	PS.statusText("PRESS ENTER TO PLAY AGAIN");
 	
 	this.Game.removeAllObjectsFromLevel();
 	

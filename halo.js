@@ -18,7 +18,7 @@ var Halo = function(player){
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor (this.sprite, PS.COLOR_YELLOW );
 	PS.spriteMove(this.sprite, this.x, this.y);
-	PS.spriteSolidAlpha (this.sprite, 255);
+	PS.spriteSolidAlpha (this.sprite, 0);
 };
 
 GameObject.prototype.impart(Halo);
@@ -36,7 +36,7 @@ Halo.prototype.Draw = function(offsetX, offsetY){
 		PS.spriteSolidColor( this.sprite, PS.COLOR_YELLOW );
 	}
 	
-	PS.spriteSolidAlpha(this.sprite, Math.round((PlayerHeight * 255 / LevelHeight)));
+	PS.spriteSolidAlpha(this.sprite, (PlayerHeight * 255 / LevelHeight));
 	
 };
 

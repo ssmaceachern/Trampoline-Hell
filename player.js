@@ -24,6 +24,8 @@ var Player = function(x, y){
 	this.halo = new Halo(this);
 	Game.addObject(this.halo);
 	
+	this.indicator = new Indicator(this);
+	Game.addObject(this.indicator);
 };
 
 GameObject.prototype.impart(Player);
@@ -128,6 +130,7 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	{
 		this.y = this.y - 1;
 		this.ySpeed = -1.2 * this.ySpeed;
+		this.indicator.SwitchTarget(CollidingObject);
 	}
 	
 	if((CollidingObject.name == "Bullet" || CollidingObject.name == "Wall") && type == PS.SPRITE_OVERLAP)
