@@ -2,31 +2,42 @@
  * @author Sean
  */
 
-var BulletSpawner = function(x, y, level){
-	GameObject.call(this, x, y, 1, 1, "BulletSpawner");
+var BulletSpawner = function(x, y, level, type){
+	GameObject.call(this, x, y, 2, 3, "BulletSpawner");
 	
 	this.x = x;
 	this.y = y;
 
 	this.level = level;
 	
+	this.fireSpeed = 1/30;
+	this.type = type;
+	
 	this.functions = [];
 	
-	this.sprite = PS.spriteSolid(2, 3);
-	PS.spriteSolidColor(this.sprite, PS.COLOR_BLUE);
+	this.sprite = PS.spriteSolid(this.w, this.h);
+	PS.spriteSolidColor(this.sprite, PS.COLOR_ORANGE);
 	PS.spriteMove(this.sprite, this.x, this.y);
 
-	this.timerID1 = PS.timerStart(200, this.SpawnBulletHorizontal, this.level, this.x, this.y);
-	//this.timerID2 = PS.timerStart(250, this.SpawnBulletVertical, this.level);
+	//PS.debug(this.type + "\n");
+
+	switch(this.type){
+		//Horizontal
+		case 0:
+			this.timerID = PS.timerStart(500, this.SpawnBulletHorizontal, this.level, this.x, this.y);
+			break;
+		//Up Diagonal
+		case 1:
+			this.timerID = PS.timerStart(500, this.SpawnBulletUpDiag, this.level, this.x, this.y);
+			break;
+		//Down Diagonal
+		case 2:
+			this.timerID = PS.timerStart(500, this.SpawnBulletDownDiag, this.level, this.x, this.y);
+			break;
+	};
 };
 
 GameObject.prototype.impart(BulletSpawner);
-
-BulletSpawner.prototype.LoadSpawner = function(game){
-	//this.player = game.GetObjectByName("Player");
-	//this.spawnY = this.player.y - 32;
-	//PS.debug("SpawnY: " + this.spawnY + "\n");
-};
 
 BulletSpawner.prototype.SpawnBulletRandom = function(level){
 	var randX = Math.random() * 32;
@@ -34,27 +45,40 @@ BulletSpawner.prototype.SpawnBulletRandom = function(level){
 };
 
 BulletSpawner.prototype.SpawnBulletHorizontal = function(level, x, y){
-	/*var randX = (Math.random() * 25) + 1;
-	level.Game.addObject(new Bullet(randX, -100, 1, 2));
-	level.Game.addObject(new Bullet(randX + 2, -100, 1, 2));*/
-    PS.debug(x + " " + y + "\n");
-    if (x == 0) {
-        level.Game.addObject(new Bullet(x + 2, y, 2, 1, 1 / 30));
+	
+    //PS.debug("Horizontal\n");
+    if (x == 1) {
+        level.Game.addObject(new Bullet(x + 2, y, 1, 1, 1/30, 0));
     }
-    else if (x == 30) {
-        level.Game.addObject(new Bullet(x - 2, y, 2, 1, -1 / 30));
+    else if (x == 29) {
+        level.Game.addObject(new Bullet(x - 2, y, 1, 1, -1/30, 0));
     }
 	
 };
 
-/*
-BulletSpawner.prototype.SpawnBulletVertical = function(level){
-	var randX = Math.random() * 32;
-	level.Game.addObject(new Bullet(randX, -100 - 5, 1, 2));
-	level.Game.addObject(new Bullet(randX, -100 - 8, 1, 2));
-	level.Game.addObject(new Bullet(randX, -100 - 11, 1, 2));
+BulletSpawner.prototype.SpawnBulletUpDiag = function(level, x, y){
+	
+    //PS.debug("Up Diag\n");
+    if (x == 1) {
+        level.Game.addObject(new Bullet(x + 2, y, 1, 1, 1/30, -1/30));
+    }
+    else if (x == 29) {
+        level.Game.addObject(new Bullet(x - 2, y, 1, 1, -1/30, -1/30));
+    }
+	
 };
-*/
+
+BulletSpawner.prototype.SpawnBulletDownDiag = function(level, x, y){
+	
+    //PS.debug("Down Diag\n");
+    if (x == 1) {
+        level.Game.addObject(new Bullet(x + 2, y, 1, 1, 1/30, 1/30));
+    }
+    else if (x == 29) {
+        level.Game.addObject(new Bullet(x - 2, y, 1, 1, -1/30, -1/30));
+    }
+	
+};
 
 BulletSpawner.prototype.ChoosePattern = function(level){
 	var rand = Math.round(Math.random() * 2);
@@ -81,9 +105,7 @@ BulletSpawner.prototype.Draw = function(offsetX, offsetY){
 
 BulletSpawner.prototype.Update = function(){
 	if(this.level.CurrentMode == this.level.MODES.End){
-		//PS.debug("Time stop\n");
-		PS.timerStop(this.timerID1);
-		//PS.timerStop(this.timerID2);
+		PS.timerStop(this.timerID);
 	}
 	
 };

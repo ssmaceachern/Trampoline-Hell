@@ -43,6 +43,9 @@ See dygraphs License.txt, <http://dygraphs.com> and <http://opensource.org/licen
 
 var Game;
 var Level;
+var AudioChannel;
+var PlayerHeight;
+var LevelHeight;
 
 PS.init = function( system, options ) {
 	"use strict";
@@ -50,9 +53,11 @@ PS.init = function( system, options ) {
 	Game = new Window(32, 32, PS.COLOR_BLACK);
 	Level = new Level(Game);
 	
+	AudioChannel = PS.audioLoad("bg-music2", {autoplay : true, loop : true, path : "audio/", fileTypes : ["ogg"]});
+	
 	Level.StartGame();
 	
-	PS.statusText("Welcome to Trampoline Hell");
+	PS.statusText("Welcome to Trampoline Hell. Press Enter");
 	PS.statusColor(PS.COLOR_WHITE);
 };
 

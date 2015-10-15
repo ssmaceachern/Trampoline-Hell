@@ -2,8 +2,6 @@
  * @author Sean
  */
 
-var PlayerHeight;
-
 var Player = function(x, y){
 	GameObject.call(this, x, y, 2, 4, "Player");
 	
@@ -13,7 +11,7 @@ var Player = function(x, y){
 	
 	this.moveSpeed = 1/30;
 	this.ySpeed = 1/30;
-	this.yMaxSpeed = 2;
+	this.yMaxSpeed = 1.5;
 	this.yAcceleration = 1/120;
 	
 	/*
@@ -23,11 +21,12 @@ var Player = function(x, y){
 	PS.spriteSolidColor ( this.sprite, this.color );
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	
-	this.upIndicator = new Indicator(this, "UP");
-	this.downIndicator = new Indicator(this, "DOWN");
+
+	this.halo = new Halo(this);
+	Game.addObject(this.halo);
 	
-	// this.wings = new Wings(this);
-	// Game.addObject(this.wings);
+	this.indicator = new Indicator(this);
+	Game.addObject(this.indicator);
 };
 
 GameObject.prototype.impart(Player);
@@ -71,14 +70,25 @@ Player.prototype.Update = function(){
 	if((Game.getKey(PS.KEY_ARROW_DOWN) === 1 || Game.getKey(115) === 1))// && this.y < 26)
 	{
 		if(this.ySpeed < 0){
-			this.ySpeed += 0.1;	
+			this.ySpeed += 0.2;
+			//this.y += 0.1;
 		}
 					
 	}
 	
 	if((Game.getKey(PS.KEY_ARROW_UP) === 1 || Game.getKey(119) === 1))// && this.y > 1)
 	{
-		this.y -= 0.5;				
+		
+		if(this.ySpeed > 0){
+			this.ySpeed -= 0.2;
+			//this.y -= 0.1;	
+		}			
+	}
+	
+	if(Game.getKey(104) === 1){
+		PS.debug("Cheat code\n");
+		
+		this.y = -1500;
 	}
 	
 	if(this.x > 28)
@@ -102,9 +112,9 @@ Player.prototype.Update = function(){
 		PlayerHeight = 0;
 	} else if(PlayerHeight > 2000){
 		Level.WinGame();
+	}else{
+		PS.statusText("CURRENT HEIGHT: " + PlayerHeight + "/" + LevelHeight);
 	}
-	
-	PS.statusText("Current Height: " + PlayerHeight + "/" + LevelHeight);
 	
 };
 
@@ -121,6 +131,7 @@ Player.prototype.Collision = function(s1, p1, s2, p2, type){
 	{
 		this.y = this.y - 1;
 		this.ySpeed = -1.2 * this.ySpeed;
+		this.indicator.SwitchTarget(CollidingObject);
 	}
 	
 	if((CollidingObject.name == "Bullet" || CollidingObject.name == "Wall") && type == PS.SPRITE_OVERLAP)

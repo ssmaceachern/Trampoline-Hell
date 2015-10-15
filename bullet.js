@@ -2,19 +2,18 @@
  * @author Sean
  */
 
-var Bullet = function(x, y, width, height, spd){
+var Bullet = function(x, y, width, height, xSpeed, ySpeed){
 	GameObject.call(this, x, y, width, height, "Bullet");
 	
-	this.moveSpeed = spd;
+	this.xSpeed = xSpeed;
+	this.ySpeed = ySpeed;
 	
 	/*
 	 * Load the sprite
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
-	PS.spriteSolidColor (this.sprite, PS.COLOR_BLUE);
-	
-	//PS.spriteMove(this.sprite, this.x, this.y);
-	
+	PS.spriteSolidColor (this.sprite, PS.COLOR_YELLOW);
+		
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 };
 
@@ -35,7 +34,8 @@ Bullet.prototype.Draw = function(offsetX, offsetY){
 };
 
 Bullet.prototype.Update = function(){
-	this.x += this.moveSpeed;
+	this.x += this.xSpeed;
+	this.y += this.ySpeed;
 };
 
 Bullet.prototype.Collision = function(s1, p1, s2, p2, type){

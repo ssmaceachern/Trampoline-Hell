@@ -3,7 +3,7 @@
  */
 
 var Trampoline = function(x, y){
-	GameObject.call(this, x, y, 11, 2, "Trampoline");
+	GameObject.call(this, x, y, 12, 2, "Trampoline");
 	
 	//Random init direction
 	this.moveSpeed = 1/30 * (Math.round(Math.random()) * 2 - 1);
@@ -13,6 +13,9 @@ var Trampoline = function(x, y){
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
+	
+	Level.trampolines.push(this);
+	
 };
 
 GameObject.prototype.impart(Trampoline);
@@ -23,8 +26,6 @@ Trampoline.prototype.Update = function(){
 	}
 
 	this.x += this.moveSpeed;
-	
-	//PS.debug(this.name + ": " + this.x +", " + this.y + "\n");
 
 	//PS.debug(this.name + ": " + this.x +", " + this.y + "\n");
 };
