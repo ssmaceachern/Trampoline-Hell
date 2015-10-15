@@ -50,11 +50,6 @@ Camera.prototype.TranslateObject = function(object){
 		screenX = object.x; //+ this.GetCenterX();
 		screenY = Math.round(object.y - this.GetCenterY());
 		
-		// if(object == this.target){
-			// screenY = Math.round(object.y - this.GetCenterY());
-		// }
-		
-		//PS.debug("Object" + object.name + ": " + screenX + " " + screenY + "\n");
 		PS.spriteMove(object.sprite, screenX, screenY);
 	}
 	
@@ -71,8 +66,5 @@ Camera.prototype.Update = function(){
 		
 		new Trail(this.target, this.target.x, this.target.y, 20);
 		
-		//this.x = this.GetCenterX();
-		//this.y = this.GetCenterY();
-		//PS.debug("Screen center: " + this.x + ", " + this.y + "\n");
 	}
 };

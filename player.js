@@ -86,9 +86,9 @@ Player.prototype.Update = function(){
 	}
 	
 	if(Game.getKey(104) === 1){
-		PS.debug("Cheat code\n");
+		PS.statusText("CHEAT CODE ACTIVATED\n");
 		
-		this.y = -1500;
+		this.y = -1750;
 	}
 	
 	if(this.x > 28)

@@ -39,7 +39,7 @@ Indicator.prototype.Draw = function(offsetX, offsetY){
 Indicator.prototype.Update = function(){
 	if(this.target){
 		this.x = this.target.x + (this.target.w / 2);
-		this.y = (this.player.y + this.target.y) / 2;
+		this.y = (this.player.y + this.target.y) * 2 / 3;
 	}
 	
 };
