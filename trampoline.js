@@ -13,6 +13,8 @@ var Trampoline = function(x, y){
 	 */
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor ( this.sprite, PS.COLOR_RED );
+	
+	Level.trampolines.push(this);
 };
 
 GameObject.prototype.impart(Trampoline);

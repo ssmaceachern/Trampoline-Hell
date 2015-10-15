@@ -6,7 +6,6 @@
  *	Class for handling game states 
  * @param {Object} game
  */
-var LevelHeight;
 
 var Level = function(game)
 {
@@ -15,6 +14,7 @@ var Level = function(game)
 		this.Game = game;
 		
 		this.objects = game.objects;
+		this.trampolines = [];
 		
 		//this.spawner = new BulletSpawner(1, 1, this);
 		
@@ -64,21 +64,19 @@ Level.prototype.PlayGame = function(){
 	this.Game.addObject(new Wall(31,-1968,1,LevelHeight));
 	
 	this.Game.addObject(new Trampoline(11, 24));
-	this.Game.addObject(new Trampoline(11, -200));
-	this.Game.addObject(new Trampoline(11, -600));
-	this.Game.addObject(new Trampoline(11, -1000));
-	this.Game.addObject(new Trampoline(11, -1500));
+	
+	for (var i = 0; i < 15; i++) {
+	    this.Game.addObject(new Trampoline(11, -150 * i));
+	}
 	
 	for (var i = 0; i < 10; i++) {
-	    this.Game.addObject(new BulletSpawner(0, ((Math.random() * 1800) + 50) * -1, this));
-	    this.Game.addObject(new BulletSpawner(30, ((Math.random() * 1800) + 50) * -1, this));
+		
+	    this.Game.addObject(new BulletSpawner(1, ((Math.random() * 1800) + 50) * -1, this, Math.round(Math.random() * 2)));
+	    this.Game.addObject(new BulletSpawner(29, ((Math.random() * 1800) + 50) * -1, this, Math.round(Math.random() * 2)));
 	}
-	this.Game.addObject(new BulletSpawner(0, 20, this));
-	this.Game.addObject(new BulletSpawner(30, 25, this));
 
 	this.Game.addObject(player);
 	this.Game.camera.SetTarget(player);
-	//this.spawner.LoadSpawner(this.Game);
 };
 
 Level.prototype.PauseGame = function(){

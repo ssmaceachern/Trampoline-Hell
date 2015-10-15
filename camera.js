@@ -29,6 +29,7 @@ GameObject.prototype.impart(Camera);
  */
 Camera.prototype.SetTarget = function(object){
 	this.target = object;
+	
 };
 
 Camera.prototype.contains = function(object){
@@ -48,6 +49,11 @@ Camera.prototype.TranslateObject = function(object){
 	if(this.target && object.sprite){
 		screenX = object.x; //+ this.GetCenterX();
 		screenY = Math.round(object.y - this.GetCenterY());
+		
+		// if(object == this.target){
+			// screenY = Math.round(object.y - this.GetCenterY());
+		// }
+		
 		//PS.debug("Object" + object.name + ": " + screenX + " " + screenY + "\n");
 		PS.spriteMove(object.sprite, screenX, screenY);
 	}
@@ -63,8 +69,7 @@ Camera.prototype.Update = function(){
 	
 	if(this.target){
 		
-			new Trail(this.target, this.target.x, this.target.y, 20);
-		
+		new Trail(this.target, this.target.x, this.target.y, 20);
 		
 		//this.x = this.GetCenterX();
 		//this.y = this.GetCenterY();
