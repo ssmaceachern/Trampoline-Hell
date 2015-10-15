@@ -23,6 +23,9 @@ var Player = function(x, y){
 	PS.spriteSolidColor ( this.sprite, this.color );
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 	
+	this.upIndicator = new Indicator(this, "UP");
+	this.downIndicator = new Indicator(this, "DOWN");
+	
 	// this.wings = new Wings(this);
 	// Game.addObject(this.wings);
 };
