@@ -48,6 +48,7 @@ Camera.prototype.TranslateObject = function(object){
 	if(this.target && object.sprite){
 		screenX = object.x; //+ this.GetCenterX();
 		screenY = Math.round(object.y - this.GetCenterY());
+		//PS.debug("Object" + object.name + ": " + screenX + " " + screenY + "\n");
 		PS.spriteMove(object.sprite, screenX, screenY);
 	}
 	

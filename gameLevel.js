@@ -69,6 +69,13 @@ Level.prototype.PlayGame = function(){
 	this.Game.addObject(new Trampoline(11, -1000));
 	this.Game.addObject(new Trampoline(11, -1500));
 	
+	for (var i = 0; i < 10; i++) {
+	    this.Game.addObject(new BulletSpawner(0, ((Math.random() * 1800) + 50) * -1, this));
+	    this.Game.addObject(new BulletSpawner(30, ((Math.random() * 1800) + 50) * -1, this));
+	}
+	this.Game.addObject(new BulletSpawner(0, 20, this));
+	this.Game.addObject(new BulletSpawner(30, 25, this));
+
 	this.Game.addObject(player);
 	this.Game.camera.SetTarget(player);
 	//this.spawner.LoadSpawner(this.Game);

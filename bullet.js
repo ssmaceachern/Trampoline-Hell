@@ -2,10 +2,10 @@
  * @author Sean
  */
 
-var Bullet = function(x, y, width, height){
+var Bullet = function(x, y, width, height, spd){
 	GameObject.call(this, x, y, width, height, "Bullet");
 	
-	this.moveSpeed = 0.1;
+	this.moveSpeed = spd;
 	
 	/*
 	 * Load the sprite
@@ -13,7 +13,7 @@ var Bullet = function(x, y, width, height){
 	this.sprite = PS.spriteSolid(this.w, this.h);
 	PS.spriteSolidColor (this.sprite, PS.COLOR_BLUE);
 	
-	PS.spriteMove(this.sprite, this.x, this.y);
+	//PS.spriteMove(this.sprite, this.x, this.y);
 	
 	PS.spriteCollide(this.sprite, this.Collision.bind(this));
 };
@@ -35,7 +35,7 @@ Bullet.prototype.Draw = function(offsetX, offsetY){
 };
 
 Bullet.prototype.Update = function(){
-	this.y += this.moveSpeed;
+	this.x += this.moveSpeed;
 };
 
 Bullet.prototype.Collision = function(s1, p1, s2, p2, type){
